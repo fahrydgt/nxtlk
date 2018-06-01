@@ -131,9 +131,35 @@ class Items extends CI_Controller {
             if(!is_dir(ITEM_IMAGES.$item_id.'/')) mkdir(ITEM_IMAGES.$item_id.'/', 0777, TRUE); 
             if(!is_dir(ITEM_IMAGES.$item_id.'/other/')) mkdir(ITEM_IMAGES.$item_id.'/other/', 0777, TRUE);
             
+            $appendedFiles = array();
+
+            // scan uploads directory for appended images
+            $uploadsFiles = array_diff(scandir(ITEM_IMAGES.$item_id.'/other/'), array('.', '..'));
+            foreach($uploadsFiles as $file) { 
+                    if(is_dir($file))// skip if directory
+                            continue; 
+                    $appendedFiles[] = array(
+                            "name" => $file,
+                            "type" => get_mime_by_extension(ITEM_IMAGES.$item_id.'/other/' . $file),
+                            "size" => filesize(ITEM_IMAGES.$item_id.'/other/' . $file),
+                            "file" => base_url(ITEM_IMAGES.$item_id.'/other/' . $file),
+                            "data" => array(
+                                "url" => base_url(ITEM_IMAGES.$item_id.'/other/' . $file)
+                            )
+                    );
+            }    
+            
             $this->load->library('fileuploads'); //file upoad library created by FL
             $def_image = $this->fileuploads->upload_all('image',ITEM_IMAGES.$item_id.'/');
+            $res_itm_all_px = $this->fileuploads->upload_all('item_images',ITEM_IMAGES.$item_id.'/other/',$appendedFiles);
+            
+            if(!empty($res_itm_all_px)){
+                foreach ($res_itm_all_px as $itm_img){
+                    $all_images[]=$itm_img['name'];
+                }
+            }; 
            
+//            echo '<pre>';            print_r($all_images);die;
             $data['item'] = array(
                                     'id' => $item_id,
                                     'item_code' => $inputs['item_code'],
@@ -147,6 +173,7 @@ class Items extends CI_Controller {
                                     'sales_excluded' => $inputs['sales_excluded'],
                                     'purchases_excluded' => $inputs['purchases_excluded'],
                                     'image' => (!empty($def_image))?$def_image[0]['name']:'',
+                                    'images' => (isset($all_images))?json_encode($all_images):'',
                                     'status' => $inputs['status'], 
                                     'added_on' => date('Y-m-d'),
                                     'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],

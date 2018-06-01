@@ -13,6 +13,7 @@
                         'sales_excluded'=>0, 
                         'purchases_excluded'=>0, 
                         'image' => 'default.jpg', 
+                        'images' => array(), 
                         'status'=>"1",
             
                         'stock_unit'=>"0",
@@ -62,6 +63,7 @@
 		$o_dis		= 'disabled'; 
 	break;
 endswitch;	 
+
 //                echo '<pre>';print_r(($result)); die;
         
 ?> 
@@ -239,7 +241,17 @@ endswitch;
                                                 <div class="col-md-3">
                                                     <img id="img_itm" class="profile-user-img img-responsive img-bordered" src="<?php echo base_url(ITEM_IMAGES.$result['id'].'/'.$result['image']); ?>" alt="User profile picture">
                                                 </div>
-                                            </div>
+                                            </div> 
+                                               <br>
+                                                <div class="form-group">
+                                                    <label class="col-md-12 control-label">Other Images</label>
+                                                    <div class="col-md-12">     
+                                                        <div class="fl_file_uploader2">
+                                                            <input type="file" name="item_images" class="fl_files" data-fileuploader-files=''> 
+                                                        </div> 
+                                                        <span class="help-block"><?php echo form_error('item_images');?></span>
+                                                    </div>
+                                                </div> 
                                              
                                          </div>
                                                 <div class="col-md-6">

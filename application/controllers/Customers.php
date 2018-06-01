@@ -143,6 +143,13 @@ class Customers extends CI_Controller {
             } else{
                 $inputs['status'] = 0;
             }
+             //create Dir if not exists for store necessary images   
+            if(!is_dir(CUSTOMER_IMAGES.$cust_id.'/')) mkdir(CUSTOMER_IMAGES.$cust_id.'/', 0777, TRUE); 
+
+            $this->load->library('fileuploads'); //file upoad library created by FL
+            $res_image = $this->fileuploads->upload_all('customer_image',CUSTOMER_IMAGES.$cust_id.'/');
+            
+//            echo '<pre>';            print_r($res_image); die;
                     
             $data['customer'] = array(
                             'id' => $cust_id,
@@ -163,6 +170,7 @@ class Customers extends CI_Controller {
                             'commision_plan' => $inputs['commision_plan'],
                             'commission_value' => $inputs['commission_value'],
                             'credit_limit' => $inputs['credit_limit'], 
+                            'customer_image' => (!empty($res_image))?$res_image[0]['name']:'',
                             'added_on' => date('Y-m-d'),
                             'added_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         );
@@ -206,6 +214,12 @@ class Customers extends CI_Controller {
             } else{
                 $inputs['status'] = 0;
             } 
+             //create Dir if not exists for store necessary images   
+            if(!is_dir(CUSTOMER_IMAGES.$customer_id.'/')) mkdir(CUSTOMER_IMAGES.$customer_id.'/', 0777, TRUE); 
+
+            $this->load->library('fileuploads'); //file upoad library created by FL
+            $res_image = $this->fileuploads->upload_all('customer_image',CUSTOMER_IMAGES.$customer_id.'/');
+            
             $data = array(
                             'customer_name' => $inputs['customer_name'],
                             'short_name' => $inputs['short_name'],
@@ -228,6 +242,9 @@ class Customers extends CI_Controller {
                             'updated_by' => $this->session->userdata(SYSTEM_CODE)['ID'],
                         ); 
             
+            if(!empty($res_image)){
+                $data['customer_image'] = $res_image[0]['name'];
+            }
 //            echo '<pre>'; print_r($data); die;
             //old data for log update
             $existing_data = $this->Customers_model->get_single_row($inputs['id']);

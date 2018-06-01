@@ -23,7 +23,7 @@
                         'commision_plan'=>"1",
                         'commission_value'=>"0",
                         'credit_limit'=>"0",
-                        'licence_image'=>"default.jpg",
+                        'customer_image'=>"default.jpg",
                         'status'=>1
                         );   		
 	
@@ -285,7 +285,23 @@ endswitch;
                                                 </div>
 
 
-                                    </div> 
+                                    </div> <div class="col-md-6 ">
+                                       <h5>Attachment </h5>
+                                       <hr>         
+                                            <div class="form-group">
+                                                    <label class="col-md-3 control-label">Customer (Image)</label>
+                                                    <div class="col-md-9">                                            
+                                                        <div class="input-group">
+                                                            <span class="input-group-addon"><span class="fa fa-pencil"></span></span>
+                                                             <?php echo form_input(array('name'=>'customer_image', 'id'=>'customer_image', 'class'=>'form-control', 'type'=>'file'));?>
+                                                         </div>    
+                                                        <div><img class="thumbnail" style="size: 100%; width:100px;"  src="<?php echo base_url().CUSTOMER_IMAGES.$result['id'].'/'.$result['customer_image'];?>"></div>
+                                                        <span class="help-block"><?php echo form_error('customer_image');?></span>
+                                                    </div>
+                                                </div>
+                                        
+
+                                </div>
 
                             </div>
                         </div>

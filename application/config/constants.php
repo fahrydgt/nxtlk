@@ -149,7 +149,7 @@ define('FILE_BACKUPS',	'./storage/backups/file_backups/');
 define('DEFAULT_IMAGE_LOC',	'./storage/images/default/');
 define('DEFAULT_PIC',	'./storage/images/default/default.jpg');
 define('BANNERS_PIC',	'./storage/images/CMS/banners/'); 
-define('CUSTOMER_LICENSE',	'./storage/images/customers/licenses/'); 
+define('CUSTOMER_IMAGES',	'./storage/images/customers/cust_images/'); 
 define('ITEM_IMAGES',	'./storage/images/items/'); 
 define('FONTS_LOC',	'./storage/fonts/'); 
 define('FILE_BACKUP_SOURCE',	'./storage/');

@@ -14,7 +14,7 @@
             echo form_hidden('itm_data_'.$search['id'], json_encode($search));
             echo '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div id="'.$search['id'].'"  class="thumbnail itm_click">
-                          <a > <img src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100%;overflow: hidden"></a>
+                          <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100% ;overflow: hidden"></a>
 
                           <div class="caption">
                               <div class="mailbox-attachment-info">
@@ -99,6 +99,7 @@
 <script>
  
 $(document).ready(function() {
+    
     $('#confirm_order_item').click(function(){
 //        alert()
         add_item_to_order();

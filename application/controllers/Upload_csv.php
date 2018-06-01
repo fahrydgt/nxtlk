@@ -31,7 +31,7 @@ class Upload_csv extends CI_Controller {
             $data_arr = array();
             
             while (($csv = fgetcsv($file_open, 1000, ",")) !== false) {
-                echo '<pre>';        print_r($csv); die;
+//                echo '<pre>';        print_r($csv); die;
 
                 $item_id = get_autoincrement_no(ITEMS); 
     //            $item_code = gen_id('1', ITEMS, 'id',4);

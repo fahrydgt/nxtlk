@@ -54,7 +54,7 @@ $(document).ready(function(){
                                     success: function(result){
             //                            console.log(result); 
                                          $("#result_search_items").html(result); 
-
+                                         
             //                             $(".dataTable").DataTable();
                                     }
                                 });

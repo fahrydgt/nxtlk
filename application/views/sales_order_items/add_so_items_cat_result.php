@@ -57,7 +57,12 @@ function get_results_item2(cat_id=''){
                                          $('ul.setup-panel li:eq(1)').removeClass('disabled');
                                         $('ul.setup-panel li a[href="#step-2"]').trigger('click'); 
                                          $("#result_search_items").html(result); 
-
+                                         
+                                         
+                                        $('img.toResizeClass').each(function(){ //set item image proportion
+                                               var $img = $(this);    
+                                               $img.height($img.width() * 0.675); 
+                                           });
             //                             $(".dataTable").DataTable();
                                     }
                                 });

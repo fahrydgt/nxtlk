@@ -319,7 +319,7 @@ endswitch;
                                                                 <tr>
                                                                     <td>'.$sale_type.'</td>
                                                                     <td>'.form_dropdown('prices[sales]['.$key.'][currency_id]',$currency_list,set_value('prices[sales]['.$key.'][currency_id]',(isset($sale_price_arr['currency_code'])?$sale_price_arr['currency_code']:$this->session->userdata(SYSTEM_CODE)['default_currency'])),' class="form-control" data-live-search="true" id="prices["sales"]currency_id['.$key.']" '.$o_dis.''). form_hidden('prices[sales]['.$key.'][sales_type_id]',$key).' </td> 
-                                                                    <td>'.form_input('prices[sales]['.$key.'][amount]', set_value('prices[sales]['.$key.'][amount]', number_format((isset($sale_price_arr['price_amount'])?$sale_price_arr['price_amount']:0),2,'.','')), 'id="prices[sales]['.$key.'][amount]" class="form-control" placeholder="Enter Amount"'.$dis.' '.$o_dis.' ').form_error('prices[sales]['.$key.'][amount]').'</td>
+                                                                    <td>'.form_input('prices[sales]['.$key.'][amount]', set_value('prices[sales]['.$key.'][amount]', number_format((isset($sale_price_arr['price_amount'])?$sale_price_arr['price_amount']:0),0,'.','')), 'id="prices[sales]['.$key.'][amount]" class="form-control" placeholder="Enter Amount"'.$dis.' '.$o_dis.' ').form_error('prices[sales]['.$key.'][amount]').'</td>
                                                                   </tr>  
                                                             ';
                                                     }

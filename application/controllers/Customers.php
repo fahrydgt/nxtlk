@@ -97,10 +97,11 @@ class Customers extends CI_Controller {
             $this->form_validation->set_rules('customer_type_id','Property Type','required');
             $this->form_validation->set_rules('address','Address','required');
             $this->form_validation->set_rules('city','City','required');
-            $this->form_validation->set_rules('commision_plan','Commission Plan','required');
+//            $this->form_validation->set_rules('commision_plan','Commission Plan','required');
             $this->form_validation->set_rules('phone','phone','required|min_length[10]|integer'); 
-            $this->form_validation->set_rules('commission_value','Commission Value','required|numeric'); 
-            $this->form_validation->set_rules('credit_limit','Credit Limit','required|numeric'); 
+//            $this->form_validation->set_rules('commission_value','Commission Value','required|numeric'); 
+//            $this->form_validation->set_rules('credit_limit','Credit Limit','required|numeric'); 
+            $this->form_validation->set_rules('postal_code','Postal Code','required'); 
       }	
       
       function check_unique_nic(){
@@ -527,7 +528,26 @@ class Customers extends CI_Controller {
                 redirect(base_url($this->router->fetch_class().'/edit/'.$inputs['customer_id']));
             }  
 	}
-        function test(){
+        
+        
+        function fl_ajax(){  
+//            echo '<pre>';            print_r($this->input->post()); die;
+            $func = $this->input->post('function_name');
+            $param = $this->input->post();
+            
+            if(method_exists($this, $func)){ 
+                (!empty($param))?$this->$func($param):$this->$func();
+            }else{
+                return false;
+            }
+        }
+        function get_states(){
+            $country_code = $this->input->post('country_id'); 
+            $list = get_dropdown_data(COUNTRY_STATES,'state_name','id','',"country_code = '$country_code'"); 
+            
+            echo json_encode($list); 
+        }
+                function test(){
             echo '<pre>';            print_r($this->router->class); die;
 //            $this->load->model('Customers_model');
 //            $data = $this->Customers_model->get_single_row(1);

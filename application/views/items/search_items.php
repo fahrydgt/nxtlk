@@ -22,7 +22,7 @@ $(document).ready(function(){
 			data : jQuery('#form_search').serializeArray(),
 			success: function(result){
                              $("#result_search").html(result);
-                             $(".dataTable").DataTable();
+//                             $(".dataTable").DataTable();
                         }
 		});
 	}

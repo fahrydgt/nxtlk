@@ -129,14 +129,14 @@ endswitch;
                                                 <div  class="form-group">
                                                     <label class="col-md-3 control-label">Item Code<span style="color: red">*</span></label>
                                                     <div class="col-md-9">    
-                                                        <?php echo form_input('item_code', set_value('item_code', $result['item_code']), 'id="item_code" class="form-control" placeholder="Enter Item unique code"'.$dis.' '.$o_dis.' '); ?>
+                                                        <?php echo form_input('item_code', set_value('item_code', $result['item_code']), 'id="item_code" class="form-control" style=" text-transform:capitalize;"  placeholder="Enter Item unique code"'.$dis.' '.$o_dis.' '); ?>
                                                         <?php echo form_error('item_code');?>&nbsp;
                                                     </div> 
                                                 </div> 
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Item Name<span style="color: red">*</span></label>
                                                     <div class="col-md-9">    
-                                                        <?php echo form_input('item_name', set_value('item_name', $result['item_name']), 'id="item_name" class="form-control" placeholder="Inte item name"'.$dis.' '.$o_dis.' '); ?>
+                                                        <?php echo form_input('item_name', set_value('item_name', $result['item_name']), 'id="item_name" class="form-control" style=" text-transform:capitalize;" placeholder="Inte item name"'.$dis.' '.$o_dis.' '); ?>
                                                         <?php echo form_error('item_name');?>&nbsp;
                                                     </div> 
                                                 </div> 
@@ -144,7 +144,7 @@ endswitch;
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Description<span style="color: red"></span></label>
                                                     <div class="col-md-9">    
-                                                       <?php echo form_textarea(array('name'=>'description','rows'=>'4','cols'=>'60', 'class'=>'form-control', 'placeholder'=>'Enter description' ), set_value('description',$result['description']),$dis.' '.$o_dis.' '); ?>
+                                                       <?php echo form_textarea(array('name'=>'description','rows'=>'4','cols'=>'60', 'class'=>'form-control', 'style'=>'text-transform:capitalize', 'placeholder'=>'Enter description' ), set_value('description',$result['description']),$dis.' '.$o_dis.' '); ?>
                                                         <?php echo form_error('description');?>&nbsp;
                                                     </div> 
                                                 </div>

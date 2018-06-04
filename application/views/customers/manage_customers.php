@@ -12,9 +12,9 @@
                         'hotel_representative'=>"",
                         'address'=>"",
                         'city'=>"",
-                        'state'=>"3",
+                        'state'=>"10",
                         'postal_code'=>"",
-                        'country'=>"LK",
+                        'country'=>"GB",
                         'contact_person'=>"",
                         'phone'=>"",
                         'fax'=>"",
@@ -27,13 +27,14 @@
                         'status'=>1
                         );   		
 	
-	 
+	 $add_hide = "";
 	switch($action):
 	case 'Add':
 		$heading	= 'Add';
 		$dis		= '';
 		$view		= '';
 		$o_dis		= ''; 
+		$add_hide       = 'hidden'; 
 	break;
 	
 	case 'Edit':
@@ -87,7 +88,7 @@ endswitch;
             <div class="">
                 <a href="<?php echo base_url($this->router->fetch_class().'/add');?>" class="btn btn-app "><i class="fa fa-plus"></i>Create New</a>
                 <a href="<?php echo base_url($this->router->fetch_class());?>" class="btn btn-app "><i class="fa fa-search"></i>Search</a>
-                <a href="<?php echo base_url($this->router->fetch_class().'/add_branch/'.$result['id']);?>" class="btn btn-app "><i class="fa fa-bars"></i>New Branch</a>
+                <a href="<?php echo base_url($this->router->fetch_class().'/add_branch/'.$result['id']);?>" class="btn btn-app <?php echo $add_hide;?>"><i class="fa fa-bars"></i>New Branch</a>
                 <!--<a class="btn btn-app "><i class="fa fa-trash"></i>Delete</a>-->
             </div>
         </div>
@@ -118,11 +119,12 @@ endswitch;
                                         <div class="col-md-6">
 
                                              <h5>Customer Information</h5>
+                                             <div id="ajax_res"></div>
                                              <hr> 
                                                 <div class="form-group">
                                                     <label class="col-md-3 control-label">Customer Name<span style="color: red">*</span></label>
                                                     <div class="col-md-9">    
-                                                        <?php echo form_input('customer_name', set_value('customer_name',$result['customer_name']), 'id="customer_name" class="form-control" placeholder="Enter Business Customer Name"'.$dis.' '.$o_dis.' '); ?>
+                                                        <?php echo form_input('customer_name', set_value('customer_name',$result['customer_name']), 'id="customer_name" style=" text-transform:capitalize;"  class="form-control" placeholder="Enter Business Customer Name"'.$dis.' '.$o_dis.' '); ?>
                                                         <?php echo form_error('customer_name');?>&nbsp;
                                                     </div> 
                                                 </div>
@@ -214,7 +216,7 @@ endswitch;
                                                <div class="form-group">
                                                     <label class="col-md-3 control-label">Street Address<span style="color: red">*</span></label>
                                                     <div class="col-md-9">    
-                                                         <?php echo form_input('address', set_value('address',$result['address']), 'id="address" class="form-control" placeholder="Enter Street Address"'.$dis.' '.$o_dis.' '); ?>
+                                                         <?php echo form_input('address', set_value('address',$result['address']), 'id="address" class="form-control" style=" text-transform:capitalize;"  placeholder="Enter Street Address"'.$dis.' '.$o_dis.' '); ?>
                                                         <?php echo form_error('address');?>&nbsp;
                                                     </div> 
                                                 </div>
@@ -224,7 +226,7 @@ endswitch;
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">City<span style="color: red">*</span></label>
                                                         <div class="col-md-9">    
-                                                             <?php echo form_input('city', set_value('city',$result['city']), 'id="city" class="form-control" placeholder="Enter City"'.$dis.' '.$o_dis.' '); ?>
+                                                             <?php echo form_input('city', set_value('city',$result['city']), 'id="city" class="form-control" style=" text-transform:capitalize;" placeholder="Enter City"'.$dis.' '.$o_dis.' '); ?>
                                                             <?php echo form_error('city');?>&nbsp;
                                                         </div> 
                                                     </div>
@@ -232,7 +234,7 @@ endswitch;
                                                     <div class="form-group">
                                                         <label class="col-md-3 control-label">Postcode</label>
                                                         <div class="col-md-9">    
-                                                             <?php echo form_input('postal_code', set_value('postal_code',$result['postal_code']), 'id="postal_code" class="form-control" placeholder="Enter Postal Code"'.$dis.' '.$o_dis.' '); ?>
+                                                             <?php echo form_input('postal_code', set_value('postal_code',$result['postal_code']), 'id="postal_code" class="form-control"style=" text-transform:capitalize;"  placeholder="Enter Postal Code"'.$dis.' '.$o_dis.' '); ?>
                                                             <?php echo form_error('postal_code');?>&nbsp;
                                                         </div> 
                                                     </div>
@@ -400,7 +402,7 @@ endswitch;
 <script>
     
 $(document).ready(function(){  
-     
+    
     $("form").submit(function(){ 
         if(!confirm("Click Ok to Confirm form Submition.")){
                return false;
@@ -419,5 +421,24 @@ $(document).ready(function(){
                       $('#myModal').modal({show:true});
                       
               }); 
+              
+//              $('#country').change(function(){
+//                  $.ajax({
+//			url: "<?php // echo site_url('Customers/fl_ajax');?>",
+//			type: 'post',
+//			data : {function_name:'get_states',country_id:$('#country').val()},
+//			success: function(result){
+//                             $("#ajax_res").html(result); 
+//                             $.each(result, function(key, value) { 
+//                             console.log(value) 
+//                                    
+//                                    $('#state').append($("<option></option>").attr("value",key).text(value)); 
+//                               });
+//                        }
+//                    });
+//                  alert()
+//              });
+              
+//    $('#country').trigger('change');
 });
 </script>

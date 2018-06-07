@@ -58,14 +58,15 @@
              <div class="caption">
                 <div class="mailbox-attachment-info">
                   <div class="mailbox-attachment-name">
-                      <h4>DESC : <span id="modal_item_desc">--</span></h4>
-                      <h4>ITEM NO : <span id="modal_item_code">--</span></h4>
+                      <h5>NAME : <span id="modal_item_desc">--</span></h5>
+                      <h5>ITEM NO : <span id="modal_item_code">--</span></h5>
+                      <h5>ITEM DESC : <span id="modal_item_info">--</span></h5>
                       <div class="row">
-                          <div class="col-md-6">
+                          <div class="col-md-6  col-sm-6  col-xs-6">
                                 UNITS : <span id="modal_item_uom">--</span>
                                 <input name="modal_qty" class="form-control" type="number" id="modal_qty" min="1" value="1">
                             </div>
-                          <div class="col-md-6">
+                          <div class="col-md-6  col-sm-6  col-xs-6">
                                 Price : <span id="modal_item_price"></span>
                                 <input name="modal_price" class="form-control" type="text" id="modal_price" min="0" value="0">
                             </div>
@@ -82,10 +83,10 @@
           </div>
           <div class="modal-footer"> 
               <div class="row">
-                  <div style="padding-top: 5px;" class="col-md-6">
+                  <div style="padding-top: 5px;" class="col-md-6 col-sm-6  col-xs-6">
                       <a id="confirm_order_item" type="button" class="btn btn-block btn-success btn-lg">Add to Order</a>
                   </div>
-                  <div style="padding-top: 5px;" class="col-md-6">
+                  <div style="padding-top: 5px;" class="col-md-6 col-sm-6  col-xs-6">
                         <a type="button" class="btn btn-block btn-primary btn-lg" data-dismiss="modal">Back</a>
                   </div>
               </div>
@@ -110,6 +111,7 @@ $(document).ready(function() {
         $('#modal_item_uom').text(itm_data.unit_abbreviation);
         $('#modal_item_code').text(itm_data.item_code);
         $('#modal_item_desc').text(itm_data.item_name);
+        $('#modal_item_info').text(itm_data.description);
         
         $('#item_code_txt').val(itm_data.item_code);
         $('#item_uom_id_txt').val(itm_data.item_uom_id);

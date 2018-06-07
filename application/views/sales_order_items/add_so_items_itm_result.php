@@ -58,9 +58,9 @@
              <div class="caption">
                 <div class="mailbox-attachment-info">
                   <div class="mailbox-attachment-name">
-                      <h4>NAME : <span id="modal_item_desc">--</span></h4>
-                      <h4>ITEM NO : <span id="modal_item_code">--</span></h4>
-                      <h4>ITEM DESC : <span id="modal_item_info">--</span></h4>
+                      <h5>NAME : <span id="modal_item_desc">--</span></h5>
+                      <h5>ITEM NO : <span id="modal_item_code">--</span></h5>
+                      <h5>ITEM DESC : <span id="modal_item_info">--</span></h5>
                       <div class="row">
                           <div class="col-md-6  col-sm-6  col-xs-6">
                                 UNITS : <span id="modal_item_uom">--</span>

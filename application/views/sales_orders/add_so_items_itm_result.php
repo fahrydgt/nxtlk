@@ -36,7 +36,7 @@
   <div class="modal-dialog " role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Nextlook Item </h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
@@ -112,6 +112,7 @@ $(document).ready(function() {
         $('#modal_item_code').text(itm_data.item_code);
         $('#modal_item_desc').text(itm_data.item_name);
         $('#modal_item_info').text(itm_data.description);
+        $('#exampleModalLongTitle').text(itm_data.description);
         
         $('#item_code_txt').val(itm_data.item_code);
         $('#item_uom_id_txt').val(itm_data.item_uom_id);

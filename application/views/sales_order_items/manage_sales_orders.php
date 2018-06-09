@@ -379,10 +379,11 @@ $(document).ready(function(){
             get_item_dets(this.id);
     });
     $("#place_invoice").click(function(){
-//            if($('input[name^="inv_items"]').length<=0){
-//                alert("Atleast one item need to create an invoice!")
-//                return false;
-//            }
+            if($('input[name^="inv_items"]').length<=0){
+                alert("Atleast one item need to create an invoice!")
+                return false;
+            }
+            return false;
             if(!confirm("Click ok confirm your submission.")){
                 return false;
             }

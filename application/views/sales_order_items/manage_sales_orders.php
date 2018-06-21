@@ -383,7 +383,7 @@ $(document).ready(function(){
                 alert("Atleast one item need to create an invoice!")
                 return false;
             }
-            return false;
+//            return false;
             if(!confirm("Click ok confirm your submission.")){
                 return false;
             }

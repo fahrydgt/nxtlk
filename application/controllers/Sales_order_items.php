@@ -147,7 +147,7 @@ class Sales_order_items extends CI_Controller {
                                     'id' => $sale_order_id,
                                     'sales_order_no' => $order_no,
                                     'customer_id' => $inputs['customer_id'], 
-                                    'customer_branch_id' => $inputs['customer_branch_id'], 
+                                    'customer_branch_id' => isset($inputs['customer_branch_id'])?$inputs['customer_branch_id']:'', 
                                     'price_type_id' => $inputs['price_type_id'],  
                                     'order_date' => strtotime($inputs['order_date']),  
                                     'required_date' => strtotime($inputs['required_date']),  

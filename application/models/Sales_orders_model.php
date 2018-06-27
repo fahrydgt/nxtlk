@@ -67,7 +67,7 @@ class Sales_orders_model extends CI_Model
 	}               
          public function get_so_desc($id){ 
             $this->db->select('id.*, (id.unit_price*id.units*(100-id.discount_percent)*0.01) as sub_total');
-            $this->db->select('im.item_code');
+            $this->db->select('im.item_code,im.image');
             $this->db->select('(select ic.id from '.ITEM_CAT.' ic LEFT JOIN '.ITEMS.' itm ON itm.item_category_id = ic.id where itm.id = id.item_id) as item_category');
             $this->db->select('(select unit_abbreviation from '.ITEM_UOM.' where id = id.unit_uom_id)  as unit_abbreviation');
             $this->db->select('(select unit_abbreviation from '.ITEM_UOM.' where id = id.secondary_unit_uom_id)  as unit_abbreviation_2');

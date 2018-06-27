@@ -668,7 +668,7 @@ class Sales_orders extends CI_Controller {
                 text-align:right;
             }
             .table-line tr{
-                line-height: 30px;
+                line-height: 22px;
             }
             </style>
                     ';

@@ -219,6 +219,7 @@ endswitch;
                                         <thead>
                                            <tr> 
                                                <th width="10%"  style="text-align: center;">Item Code</th> 
+                                               <th width="4%" style="text-align: center;">Pic</th> 
                                                <th width="20%" style="text-align: center;">Item Description</th> 
                                                <th width="10%" style="text-align: center;">Quantity</th> 
                                                <th width="15%" style="text-align: right;">Unit Cost</th>  
@@ -236,6 +237,7 @@ endswitch;
                                                         echo '
                                                             <tr style="padding:10px" id="tr_3">
                                                                 <td><input hidden="" name="inv_items['.$row_count.'][item_code]" value="'.$so_item['item_code'].'">'.$so_item['item_code'].'</td>
+                                                                <td><img class="thumbnail" style="width:30px;height:30px;" src="'. base_url(ITEM_IMAGES.$so_item['item_id'].'/'.$so_item['image']).'"></td>                 
                                                                 <td><input hidden="" name="inv_items['.$row_count.'][item_desc]" value="'.$so_item['item_desc'].'"><input hidden="" name="inv_items['.$row_count.'][item_id]" value="'.$so_item['item_id'].'">'.$so_item['item_desc'].'</td>
                                                                 <td align="right"><input hidden="" name="inv_items['.$row_count.'][item_quantity]" value="'.$so_item['units'].'"><input hidden="" name="inv_items['.$row_count.'][item_quantity_2]" value="'.$so_item['secondary_unit'].'"><input hidden="" name="inv_items['.$row_count.'][item_quantity_uom_id]" value="'.$so_item['unit_uom_id'].'"><input hidden="" name="inv_items['.$row_count.'][item_quantity_uom_id_2]" value="'.$so_item['secondary_unit_uom_id'].'">'.$so_item['units'].' '.$so_item['unit_abbreviation'].' '.(($so_item['secondary_unit']>0)?'| '.$so_item['units'].' '.$so_item['unit_abbreviation_2']:'').'</td> 
                                                                 <td align="right"><input hidden="" name="inv_items['.$row_count.'][item_unit_cost]" value="'.$so_item['unit_price'].'">'. number_format($so_item['unit_price'],2).'</td>
@@ -345,10 +347,29 @@ endswitch;
         </div>
 </div>
     
+<!--     //image Lightbox-->
+     <div tabindex="-1" class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content"> 
+                  <div align="" class="modal-body">
+                      <div><center><img class="model_img"   src=""></center> </div>
+                  </div>
+                  <div class="modal-footer">
+                          <button class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+             </div>
+            </div>
+          </div>
+ <style>
+    .modal-dialog {width:800px;}
+    .thumbnail {margin-bottom:6px;}
+    .modal-body {width:800px; align:center;}
+    .model_img {width: 500px;}
+</style>
+    
 <script>
     
 $(document).keypress(function(e) {
-    
 //    alert(e.keyCode)
         if(e.keyCode == 13) {//13 for enter
             if ($(".add_item_inpt").is(":focus")) {
@@ -364,6 +385,14 @@ $(document).keypress(function(e) {
         }
     });
 $(document).ready(function(){
+    
+     $('.thumbnail').click(function(){ 
+            var title = $(this).parent('a').attr("src");
+            $(".model_img").attr("src",this.src); 
+            $('#myModal').modal({show:true});
+
+    }); 
+    
     $('#item_code').focus();
     $('.select2').on("select2:close", function () { $(this).focus(); });
     

@@ -126,7 +126,7 @@ $(document).ready(function() {
         
         if(typeof(itm_data.image) != "undefined" && itm_data.image !== ""){ 
             var img_def = '<div id="img_1"  name="'+id21+'" class="item active"><img src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/'+itm_data.image+'" alt="First slide" style="width:100%"></div>';
-            var img_def_thumb = '<img id="imgtmb_1" style="border-width:5px; border-style:ridge;" class="itm-thmb pad col-md-3 col-sm-3 col-xs-3 border-left" src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/'+itm_data.image+'">';
+            var img_def_thumb = '<img id="imgtmb_1" style="border-width:5px;height:80px;  border-style:ridge;" class="itm-thmb pad col-md-3 col-sm-3 col-xs-3 border-left" src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/'+itm_data.image+'">';
             $('.carousel-inner').html(img_def); 
             $('.carousel-small-img').html(img_def_thumb); 
         }  
@@ -138,7 +138,7 @@ $(document).ready(function() {
             if(typeof(itm_imgdata) != "undefined" && itm_imgdata !== ""){
                 $(itm_imgdata).each(function (index, o) {   
                      var $img = '<div id="img_'+cnt+'" name="'+id21+'" class="item"><img src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/other/'+o+'" alt="First slide" style="width:100%"></div>';
-                     var img_def_thumb = '<img id="imgtmb_'+cnt+'" style="border-width:5px; border-style:ridge;" class="pad col-md-3 col-sm-3 col-xs-3 itm-thmb" src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/other/'+o+'">';
+                     var img_def_thumb = '<img id="imgtmb_'+cnt+'" style="border-width:5px;height:80px; border-style:ridge;" class="pad col-md-3 col-sm-3 col-xs-3 itm-thmb" src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/other/'+o+'">';
                         $('.carousel-inner').append($img);
                         $('.carousel-small-img').append(img_def_thumb);
                         cnt++;
@@ -173,6 +173,7 @@ $(document).ready(function() {
                 $('#img_'+active_mg).removeClass('active');
                 $('#img_'+tmbimg_id).addClass('active'); 
               });
+              
     });
 });
  

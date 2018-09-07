@@ -62,5 +62,7 @@
 <!-- Pagination -->
 <script src="<?php echo base_url('templates/plugins/pagination/jquery.twbsPagination.js')?>"></script>
 <!-- END Pagination-->
+<script src="<?php echo base_url('templates/plugins/mobile_custom/jquery.mobile.custom.min.js')?>"></script>
+<!-- END Pagination-->
 </body>
 </html>

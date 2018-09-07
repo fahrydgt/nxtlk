@@ -55,6 +55,7 @@
   
 <!-- jQuery 3.1.1 -->
 <script src="<?php echo base_url('templates/plugins/jQuery/jquery-3.1.1.min.js');?>"></script>
+<script src="<?php echo base_url('templates/plugins/jQuery/jquery.touchSwipe.min.js');?>"></script>
 <!--<script src="<?php // echo base_url('templates/plugins/jQuery/jquery-2.2.3.min.js');?>"></script>-->
 <!-- Drag Table-->
 <script src="<?php echo base_url('templates/plugins/table_row_drag/tbl_row_drager.js')?>"></script>

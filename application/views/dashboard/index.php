@@ -3,6 +3,9 @@
     <section class="content">
       <!-- Small boxes (Stat box) -->
       <div class="row">
+        <div class="col-lg-12 col-xs-12 col-sm-12 col-md-12">
+            <a href="<?php echo base_url('Sales_order_items');?>" type="button" class="btn btn-block btn-default btn-sm">New Order</a><br>
+        </div>
         <div class="col-lg-3 col-xs-6">
           <!-- small box -->
           <div class="small-box bg-aqua">

@@ -441,17 +441,17 @@ $(document).ready(function(){
                                 
                                     
                                 
-                                var row_str = '<tr style="padding:10px" id="tr_'+res2.id+rowCount+'">'+ 
-                                                        '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_code]" value="'+$('#item_code').val()+'">'+$('#item_code').val()+'</td>'+
-                                                        '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_desc]" value="'+res2.item_name+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_id]" value="'+res2.id+'">'+res2.item_name+'</td>'+
-                                                        '<td align="right"><input hidden name="inv_items['+res2.id+rowCount+'][item_quantity]" value="'+$('#item_quantity').val()+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_2]" value="'+(($('#item_quantity_2').val()==null)?0:$('#item_quantity_2').val())+'">'+
-                                                        '<input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_uom_id]" value="'+res2.item_uom_id+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_uom_id_2]" value="'+res2.item_uom_id_2+'">'+
+                                var row_str = '<tr style="padding:10px" id="tr_'+rowCount+'">'+ 
+                                                        '<td><input hidden name="inv_items['+rowCount+'][item_code]" value="'+$('#item_code').val()+'">'+$('#item_code').val()+'</td>'+
+                                                        '<td><input hidden name="inv_items['+rowCount+'][item_desc]" value="'+res2.item_name+'"><input hidden name="inv_items['+rowCount+'][item_id]" value="'+res2.id+'">'+res2.item_name+'</td>'+
+                                                        '<td align="right"><input hidden name="inv_items['+rowCount+'][item_quantity]" value="'+$('#item_quantity').val()+'"><input hidden name="inv_items['+rowCount+'][item_quantity_2]" value="'+(($('#item_quantity_2').val()==null)?0:$('#item_quantity_2').val())+'">'+
+                                                        '<input hidden name="inv_items['+rowCount+'][item_quantity_uom_id]" value="'+res2.item_uom_id+'"><input hidden name="inv_items['+rowCount+'][item_quantity_uom_id_2]" value="'+res2.item_uom_id_2+'">'+
                                                                                                                                                                                                                                                                                 $('#item_quantity').val()+' '+res2.unit_abbreviation;
                                 if(res2.unit_abbreviation_2!=null && res2.unit_abbreviation_2!=0){
                                     row_str = row_str + ' | ' + $('#item_quantity_2').val()+' '+res2.unit_abbreviation_2;
                                 }                                                                                                                                                                                                                                                                        
-                                row_str = row_str + '</td> <td align="right"><input hidden name="inv_items['+res2.id+rowCount+'][item_unit_cost]" value="'+$('#item_unit_cost').val()+'">'+parseFloat($('#item_unit_cost').val()).toFixed(2)+'</td>'+ 
-                                                        '<td align="right"><input class="item_tots" hidden name="inv_items['+res2.id+rowCount+'][item_total]" value="'+item_total+'">'+item_total.toFixed(2)+'</td>'+
+                                row_str = row_str + '</td> <td align="right"><input hidden name="inv_items['+rowCount+'][item_unit_cost]" value="'+$('#item_unit_cost').val()+'">'+parseFloat($('#item_unit_cost').val()).toFixed(2)+'</td>'+ 
+                                                        '<td align="right"><input class="item_tots" hidden name="inv_items['+rowCount+'][item_total]" value="'+item_total+'">'+item_total.toFixed(2)+'</td>'+
                                                         '<td width="5%"><button id="del_btn" type="button" class="del_btn_inv_row btn btn-danger"><i class="fa fa-trash"></i></button></td>'+
                                                     '</tr>';
                                 var newRow = $(row_str);
@@ -645,19 +645,17 @@ $(document).ready(function(){
        //                                var item_total = qtyXprice - (parseFloat($('#item_discount').val())* 0.01 * qtyXprice);
                                        var item_total = qtyXprice;
 
-                                       var row_str = '<tr style="padding:10px; background:#FBB8B8;" id="tr_'+res2.id+rowCount+'">'+ 
-                                                               '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_code]" value="'+item_code+'">'+item_code+'</td>'+
-                                                               '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_desc]" value="'+res2.item_name+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_id]" value="'+res2.id+'">'+res2.item_name+'</td>'+
-                                                               '<td align="right"><a id="minusqty_'+res2.id+rowCount+'" class="btn_minus btn inline btn-sm btn-warning"><span class="fa fa-minus"></span></a>'+
-                                                                                '<input id="qty_'+res2.id+rowCount+'" class="inline form-control input-md" style="width:100px;"  type="number" min="0" name="inv_items['+res2.id+rowCount+'][item_quantity]" value="'+itm_qty+'">'+
-                                                                                '<a id="plusqty_'+res2.id+rowCount+'" class="btn_plus btn inline btn-sm btn-primary"><span class="fa fa-plus"></span></a><input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_2]" value="'+((itm_qty_2==null)?0:itm_qty_2)+'">'+
-                                                               '<input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_uom_id]" value="'+res2.item_uom_id+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_uom_id_2]" value="'+res2.item_uom_id_2+'"><span hidden>'+
+                                       var row_str = '<tr style="padding:10px; background:#FBB8B8;" id="tr_'+rowCount+'">'+ 
+                                                               '<td><input hidden name="inv_items['+rowCount+'][item_code]" value="'+item_code+'">'+item_code+'</td>'+
+                                                               '<td><input hidden name="inv_items['+rowCount+'][item_desc]" value="'+res2.item_name+'"><input hidden name="inv_items['+rowCount+'][item_id]" value="'+res2.id+'">'+res2.item_name+'</td>'+
+                                                               '<td align="right"><a id="plusqty_'+rowCount+'" class="btn inline btn-sm btn-primary"><span class="fa fa-plus"></span></a><input id="qty_'+rowCount+'" class="inline form-control input-md" style="width:100px;"  type="number" min="0" name="inv_items['+rowCount+'][item_quantity]" value="'+itm_qty+'"><a id="plusqty_'+rowCount+'" class="btn inline btn-sm btn-primary"><span class="fa fa-plus"></span></a><input hidden name="inv_items['+rowCount+'][item_quantity_2]" value="'+((itm_qty_2==null)?0:itm_qty_2)+'">'+
+                                                               '<input hidden name="inv_items['+rowCount+'][item_quantity_uom_id]" value="'+res2.item_uom_id+'"><input hidden name="inv_items['+rowCount+'][item_quantity_uom_id_2]" value="'+res2.item_uom_id_2+'"><span hidden>'+
                                                                                                                                                                                                                                                                                        itm_qty+' '+res2.unit_abbreviation;
                                        if(res2.unit_abbreviation_2!=null && res2.unit_abbreviation_2!=0){
                                            row_str = row_str + ' | ' + itm_qty_2+' '+res2.unit_abbreviation_2;
                                        }                                                                                                                                                                                                                                                                        
-                                       row_str = row_str + '</span></td> <td align="right"><input hidden name="inv_items['+res2.id+rowCount+'][item_unit_cost]" value="'+item_price+'">'+parseFloat(item_price).toFixed(2)+'</td>'+ 
-                                                               '<td align="right"><input class="item_tots" hidden name="inv_items['+res2.id+rowCount+'][item_total]" value="'+item_total+'">'+item_total.toFixed(2)+'</td>'+
+                                       row_str = row_str + '</span></td> <td align="right"><input hidden name="inv_items['+rowCount+'][item_unit_cost]" value="'+item_price+'">'+parseFloat(item_price).toFixed(2)+'</td>'+ 
+                                                               '<td align="right"><input class="item_tots" hidden name="inv_items['+rowCount+'][item_total]" value="'+item_total+'">'+item_total.toFixed(2)+'</td>'+
                                                                '<td width="5%"><button id="del_btn" type="button" class="del_btn_inv_row btn btn-danger"><i class="fa fa-trash"></i></button></td>'+
                                                            '</tr>';
                                        var newRow = $(row_str);
@@ -679,19 +677,6 @@ $(document).ready(function(){
                                            });
                                            $('#invoice_total').val(tot_amt.toFixed(2));
                                            $('#inv_total').text(tot_amt.toFixed(2)); 
-                                       });
-                                        
-                                       $('#minusqty_'+res2.id+rowCount).click(function(){
-                                           var id1 = (this.id).split('_')[1];
-//                                           alert($('#qty_'+id1).val())
-                                           var new_val = parseFloat($('#qty_'+id1).val()) - 1;
-                                           $('#qty_'+id1).val((new_val<1)?1:new_val); 
-                                       });
-                                       $('#plusqty_'+res2.id+rowCount).click(function(){
-                                           var id1 = (this.id).split('_')[1];
-//                                           alert($('#qty_'+id1).val())
-                                           var new_val = parseFloat($('#qty_'+id1).val()) + 1;
-                                           $('#qty_'+id1).val((new_val<1)?1:new_val); 
                                        });
                                }
 		});

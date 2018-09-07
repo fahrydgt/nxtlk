@@ -134,8 +134,11 @@ $(document).ready(function() {
                      $('.carousel-inner').append($img);
                  });
             }
-         } 
-        $('#exampleModalCenter').modal('toggle')
+         }  
+        $('#exampleModalCenter').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
     });
 });
  

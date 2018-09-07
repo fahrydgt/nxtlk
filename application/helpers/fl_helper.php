@@ -257,3 +257,25 @@ function dateformat_PHP_to_jQueryUI($php_format)
     }
     return $jqueryui_format;
 }
+
+
+//copy all content of one folder  to another fo;der
+function dir_recurse_copy($src, $dst) {
+ 
+  /* Returns false if src doesn't exist */
+  $dir = @opendir($src);
+ 
+  /* Make destination directory. False on failure */
+  if (!file_exists($dst)) @mkdir($dst);
+ 
+  /* Recursively copy */
+  while (false !== ($file = readdir($dir))) {
+ 
+      if (( $file != '.' ) && ( $file != '..' )) {
+         if ( is_dir($src . '/' . $file) ) dir_recurse_copy($src . '/' . $file, $dst . '/' . $file); 
+         else copy($src . '/' . $file, $dst . '/' . $file);
+      }
+ 
+  }
+ closedir($dir); 
+}

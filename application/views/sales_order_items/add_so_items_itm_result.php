@@ -9,11 +9,12 @@
 //        echo '<pre>';        print_r($search_list_items_chunks); die;
     
     if(!empty($search_list_items_chunks)){
+        $j=1;
         foreach ($search_list_items_chunks as $search){
 //            echo '<pre>';        print_r($res_page_count); die;
             echo form_hidden('itm_data_'.$search['id'], json_encode($search));
             echo '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
-                    <div id="'.$search['id'].'"  class="thumbnail itm_click">
+                    <div id="'.$j.'_'.$search['id'].'"  class="thumbnail itm_click swipeitm_'.$j.'">
                           <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100% ;overflow: hidden"></a>
 
                           <div class="caption">
@@ -23,6 +24,7 @@
                           </div>
                     </div>
                 </div>';
+            $j++;
         }
     }else{
         echo '<p><span class="fa fa-warning"></span> No Items found for this Category!</p>';
@@ -36,10 +38,8 @@
   <div class="modal-dialog " role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Nextlook Item </h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+            <h5 class="modal-title" id="exampleModalLongTitle">Nextlook Item</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
             <?php echo form_open("", 'id="form_itm"')?>  
@@ -48,13 +48,15 @@
                     <div class="carousel-inner"> 
                         ...
                     </div>
-                    <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <a id="thumb-left-click" class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                       <span class="fa fa-angle-left"></span>
                     </a>
-                    <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <a  id="thumb-right-click" class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                       <span class="fa fa-angle-right"></span>
                     </a>
-              </div>
+                    <div class="carousel-small-img row pad">  
+                    </div>
+              </div> 
              <div class="caption">
                 <div class="mailbox-attachment-info">
                   <div class="mailbox-attachment-name">
@@ -105,8 +107,10 @@ $(document).ready(function() {
         add_item_to_order();
     });
     $('.itm_click').click(function(){
-//        alert(this.id);
-        var itm_data_jsn = $('[name="itm_data_'+this.id+'"]').val(); 
+        var id2 = (this.id).split('_')[1];
+        var id21 = (this.id).split('_')[0];
+//        alert(id2);
+        var itm_data_jsn = $('[name="itm_data_'+id2+'"]').val(); 
         var itm_data = JSON.parse(itm_data_jsn);
 //        console.log(itm_data)
         $('#modal_item_uom').text(itm_data.unit_abbreviation);
@@ -121,21 +125,54 @@ $(document).ready(function() {
         $('#item_det_json').val(itm_data_jsn);
         
         if(typeof(itm_data.image) != "undefined" && itm_data.image !== ""){ 
-            var img_def = '<div class="item active"><img src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/'+itm_data.image+'" alt="First slide" style="width:100%"></div>';
+            var img_def = '<div id="img_1"  name="'+id21+'" class="item active"><img src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/'+itm_data.image+'" alt="First slide" style="width:100%"></div>';
+            var img_def_thumb = '<img id="imgtmb_1" style="border-width:5px; border-style:ridge;" class="itm-thmb pad col-md-3 col-sm-3 col-xs-3 border-left" src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/'+itm_data.image+'">';
             $('.carousel-inner').html(img_def); 
+            $('.carousel-small-img').html(img_def_thumb); 
         }  
             
         if(typeof(itm_data.images) != "undefined" && itm_data.images !== ""){
             
             var itm_imgdata = JSON.parse(itm_data.images);
+            var cnt = 2;
             if(typeof(itm_imgdata) != "undefined" && itm_imgdata !== ""){
                 $(itm_imgdata).each(function (index, o) {   
-                     var $img = '<div class="item"><img src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/other/'+o+'" alt="First slide" style="width:100%"></div>';
-                     $('.carousel-inner').append($img);
+                     var $img = '<div id="img_'+cnt+'" name="'+id21+'" class="item"><img src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/other/'+o+'" alt="First slide" style="width:100%"></div>';
+                     var img_def_thumb = '<img id="imgtmb_'+cnt+'" style="border-width:5px; border-style:ridge;" class="pad col-md-3 col-sm-3 col-xs-3 itm-thmb" src="<?php echo base_url(ITEM_IMAGES);?>/'+itm_data.id+'/other/'+o+'">';
+                        $('.carousel-inner').append($img);
+                        $('.carousel-small-img').append(img_def_thumb);
+                        cnt++;
                  });
             }
-         } 
-        $('#exampleModalCenter').modal('toggle')
+         }  
+        $('#exampleModalCenter').modal({
+            backdrop: 'static',
+            keyboard: false
+        })
+        $('.item').swipe( {
+                //Generic swipe handler for all directions
+                swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+//                alert($(this).closest('div').attr('name'));
+                var swipe_for = parseFloat($(this).closest('div').attr('name'));
+                    if(direction=='left'){
+//                        $('#thumb-right-click').trigger('click'); 
+                        swipe_for++;
+                        $('.swipeitm_'+swipe_for).trigger('click');
+                    }
+                    if(direction=='right'){
+//                        $('#thumb-left-click').trigger('click');
+                        swipe_for--;
+                        $('.swipeitm_'+swipe_for).trigger('click');
+                    }
+                }
+              });
+              $('.itm-thmb').click(function(){
+              var tmbimg_id = (this.id).split('_')[1]; 
+              var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
+                var dif = parseFloat(tmbimg_id)-parseFloat(active_mg);
+                $('#img_'+active_mg).removeClass('active');
+                $('#img_'+tmbimg_id).addClass('active'); 
+              });
     });
 });
  

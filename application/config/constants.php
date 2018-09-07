@@ -154,6 +154,7 @@ define('ITEM_IMAGES',	'./storage/images/items/');
 define('FONTS_LOC',	'./storage/fonts/'); 
 define('FILE_BACKUP_SOURCE',	'./storage/');
 define('CAT_IMAGES',	'./storage/images/categories/');
+define('OTHER_IMAGES',	'./storage/images/other/');
 /*
 |--------------------------------------------------------------------------
 | File and Directory Modes

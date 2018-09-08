@@ -41,8 +41,8 @@ class Pdf extends TCPDF
 //        $this->Cell(0, 10, '    any trading standard products. We dont sale any charactor stuf and we don`t respond  to any of those (branded)');
 //        $this->Cell(0, 10, 'after delivery we are not responsible for any damage, so there are no return', 0, false, 'L', 0, '', 0, false, 'T', 'M');
 //        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
-       $this->writeHTMLCell(170,10,10,280,$html);
-       $this->writeHTMLCell(160,10,190,280,'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages());
+       $this->writeHTMLCell(170,10,10,275,$html);
+       $this->writeHTMLCell(160,10,190,275,'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages());
 //        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
         $image_zv = DEFAULT_IMAGE_LOC.'small_zv.png';
 //        $this->Image($image_zv, 31, 290, 4, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
@@ -140,8 +140,8 @@ class Pdf extends TCPDF
         
         $this->SetTextColor(48,75,105);
         $this->SetFont('helvetica', 'I', 10.5);
-        $this->writeHTMLCell(80,20,11,32,$header_info);
-        $this->writeHTMLCell(60,20,140,32,$header_info2); 
+        $this->writeHTMLCell(80,20,11,33,$header_info);
+        $this->writeHTMLCell(60,20,140,33,$header_info2); 
         
         $data_arr = $this->fl_data_arr;
 //        $this->fl_data_arr = array();

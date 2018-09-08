@@ -21,7 +21,7 @@
         echo '<p><span class="fa fa-warning"></span> No results found for this Category!</p>';
     }
     ?>
-    
+    <input hidden type="text" id="page_count_str" value="1">
 </div>
 
 <script>
@@ -53,17 +53,19 @@ function get_results_item2(cat_id=''){
                                     type: 'post',
                                     data : {function_name:'search_items',category_id:cat,item_code:$('#item_code').val(),order_id:$('[name="order_id"]').val(),page_no:page},
                                     success: function(result){
+                                        
             //                            console.log(result);
                                          $('ul.setup-panel li:eq(1)').removeClass('disabled');
                                         $('ul.setup-panel li a[href="#step-2"]').trigger('click'); 
                                          $("#result_search_items").html(result); 
-                                         
+//                                         alert()
                                          
                                         $('img.toResizeClass').each(function(){ //set item image proportion
                                                var $img = $(this);    
                                                $img.height($img.width() * 0.675); 
                                            });
             //                             $(".dataTable").DataTable();
+                                            $("#page_count_str").val(page);
                                     }
                                 });
                             },

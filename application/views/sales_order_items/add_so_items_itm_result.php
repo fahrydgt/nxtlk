@@ -3,7 +3,7 @@
         cursor: pointer;
     }
 </style>
-<div class="row ">        
+<div id="item_contents_swipe" class="row ">        
     <?php
     
 //        echo '<pre>';        print_r($search_list_items_chunks); die;
@@ -13,17 +13,19 @@
         foreach ($search_list_items_chunks as $search){
 //            echo '<pre>';        print_r($res_page_count); die;
             echo form_hidden('itm_data_'.$search['id'], json_encode($search));
-            echo '<div class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
+            echo '<div style="padding:5px;" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div id="'.$j.'_'.$search['id'].'"  class="thumbnail itm_click swipeitm_'.$j.'">
-                          <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100% ;overflow: hidden"></a>
+                          <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100%;height:100px;;overflow: hidden"></a>
 
                           <div class="caption">
                               <div class="mailbox-attachment-info">
-                                <a class="mailbox-attachment-name cat_click">'.$search['item_name'].'</a> 
+                                <a class="mailbox-attachment-name cat_click"><span style="font-size:10px;">'.$search['item_name'].'</span></a> 
                                 </div> 
-                          </div>
+                          </div> 
                     </div>
                 </div>';
+             
+            if($j%3==0) echo '<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12"> </div>';
             $j++;
         }
     }else{
@@ -152,17 +154,40 @@ $(document).ready(function() {
         $('.item').swipe( {
                 //Generic swipe handler for all directions
                 swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+                
 //                alert($(this).closest('div').attr('name'));
-                var swipe_for = parseFloat($(this).closest('div').attr('name'));
+                    var swipe_for = parseFloat($(this).closest('div').attr('name'));
+                    if(swipe_for==9 && direction=='left'){ 
+                    var page_swip_no = parseFloat($("#page_count_str").val());
+//                    alert($("#page_count_str").val()) 
+                    page_swip_no++; 
+                    swipe_for = 0;  
+                    $('#pagination_'+page_swip_no).trigger('click');  
+                    $('#exampleModalCenter').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    return false;
+                }
+                if(swipe_for==1 && direction=='right'){ 
+                    var page_swip_no = parseFloat($("#page_count_str").val());
+//                    alert($("#page_count_str").val()) 
+                    page_swip_no--; 
+                    swipe_for = 2;  
+                    $('#pagination_'+page_swip_no).trigger('click');  
+                    $('#exampleModalCenter').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    return false;
+                }
                     if(direction=='left'){
-                        $('#thumb-right-click').trigger('click'); 
+//                        $('#thumb-right-click').trigger('click'); 
                         swipe_for++;
-//                        $('.swipeitm_'+swipe_for).trigger('click');
+                        $('.swipeitm_'+swipe_for).trigger('click');
                     }
                     if(direction=='right'){
-                        $('#thumb-left-click').trigger('click');
+//                        $('#thumb-left-click').trigger('click');
                         swipe_for--;
-//                        $('.swipeitm_'+swipe_for).trigger('click');
+                        $('.swipeitm_'+swipe_for).trigger('click');
                     }
                 }
               });
@@ -175,7 +200,27 @@ $(document).ready(function() {
               });
               
     });
+    
+//        $('#item_contents_swipe').swipe( {
+//            
+//                //Generic swipe handler for all directions
+//                swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+////                    alert()
+////                alert($(this).closest('div').attr('name'));
+//                var page_swip_no = parseFloat($("#page_count_str").val());
+////                alert($("#page_count_str").val())
+//                    if(direction=='left'){ 
+//                            page_swip_no++; 
+//                        }
+//                    if(direction=='right'){ 
+//                        page_swip_no--; 
+//                    }
+//                $('#pagination_'+page_swip_no).trigger('click');
+//                }
+//            });
+    
 });
+ 
  
     function add_item_to_order(){ 
         $("#res1_fl").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Retrieving Data..');    

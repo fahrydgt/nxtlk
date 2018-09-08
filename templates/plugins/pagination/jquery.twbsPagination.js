@@ -152,7 +152,7 @@
 
         buildItem: function (type, page) {
             var $itemContainer = $('<li></li>'),
-                $itemContent = $('<a></a>'),
+                $itemContent = $('<a id="pagination_'+page+'"></a>'),
                 itemText = this.options[type] ? this.makeText(this.options[type], page) : page;
 
             $itemContainer.addClass(this.options[type + 'Class']);

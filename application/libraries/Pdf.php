@@ -6,6 +6,7 @@ class Pdf extends TCPDF
 {
    
     public $fl_header = 'header_1';
+    public $fl_data_arr = array();
     
     function __construct()
     { 
@@ -29,13 +30,20 @@ class Pdf extends TCPDF
     // Page footer
     public function Footer() {
         // Position at 15 mm from bottom
-        $this->SetY(-10);
+        $this->SetY(-20);
         // Set font
-        $this->SetFont('helvetica', 'I', 8);
+        $this->SetFont('helvetica', 'I', 9);
         $this->SetTextColor(135,133,133);
+        $html = '<p style="text-align:center">We import chinese and Turkey products they are high quality products, and we sale wholesale and retail but we don`t sale any trading standard products. We don`t sale any character stuff and we don`t respond  to any of those (branded) after delivery we are not responsible for any damage, so there are no returns';
         // Page number
 //        $this->Cell(0, 10, 'Solution by:         Zone Venture Software Solution - Dharga Townn Sri Lanka. Contact: +94775440889', 0, false, 'L', 0, '', 0, false, 'T', 'M');
-        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
+//         $this->Cell(0, 10, 'We import chines and Turkey products they are high quality products, and we sale wholesale and retail but we don`t sale');
+//        $this->Cell(0, 10, '    any trading standard products. We dont sale any charactor stuf and we don`t respond  to any of those (branded)');
+//        $this->Cell(0, 10, 'after delivery we are not responsible for any damage, so there are no return', 0, false, 'L', 0, '', 0, false, 'T', 'M');
+//        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
+       $this->writeHTMLCell(170,10,10,280,$html);
+       $this->writeHTMLCell(160,10,190,280,'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages());
+//        $this->Cell(0, 10, 'Page '.$this->getAliasNumPage().'/'.$this->getAliasNbPages(), 0, false, 'R', 0, '', 0, false, 'T', 'M');
         $image_zv = DEFAULT_IMAGE_LOC.'small_zv.png';
 //        $this->Image($image_zv, 31, 290, 4, '', 'PNG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         
@@ -102,15 +110,21 @@ class Pdf extends TCPDF
                             <tr>
                                 <td>'.$company_dets[0]['city'].'</td>
                             </tr>
+                            <tr>
+                                <td>'.$company_dets[0]['phone'].(($company_dets[0]['other_phone']!='')?', '.$company_dets[0]['other_phone']:'').'</td>
+                            </tr>
                             
                         </table> ';
         
-        $header_info2 = '<table>
-                            <tr>
-                                <td align="right">Phone: '.$company_dets[0]['phone'].(($company_dets[0]['other_phone']!='')?', '.$company_dets[0]['other_phone']:'').'</td>
-                            </tr>
+        $header_info2 = '<table> 
                             <tr>
                                 <td align="right">Email: '.(($company_dets[0]['email']!='')?$company_dets[0]['email']:'').'</td>
+                            </tr>
+                            <tr>
+                                <td align="right">Web: '.(($company_dets[0]['website']!='')?$company_dets[0]['website']:'').'</td>
+                            </tr>
+                            <tr>
+                                <td align="right">Facebook/nextlookuk</td>
                             </tr>
                         </table> '; 
         
@@ -126,9 +140,16 @@ class Pdf extends TCPDF
         
         $this->SetTextColor(48,75,105);
         $this->SetFont('helvetica', 'I', 10.5);
-        $this->writeHTMLCell(80,20,11,35,$header_info);
-        $this->writeHTMLCell(60,20,140,35,$header_info2); 
+        $this->writeHTMLCell(80,20,11,32,$header_info);
+        $this->writeHTMLCell(60,20,140,32,$header_info2); 
         
+        $data_arr = $this->fl_data_arr;
+//        $this->fl_data_arr = array();
+        if(isset($data_arr['order_no'])){ 
+            $this->SetTextColor(255,125,125);     ;
+            $this->Text(172,15,$data_arr['order_no']);
+            $this->SetTextColor(48,75,105); 
+        }
         
         $this->Line(10, 48, 200, 48); 
         

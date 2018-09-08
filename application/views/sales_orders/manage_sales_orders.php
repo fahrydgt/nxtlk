@@ -259,7 +259,7 @@ endswitch;
                                             </tr>-->
                                             
                                             <tr>
-                                                <th colspan="3"></th>
+                                                <th colspan="4"></th>
                                                 <th  style="text-align: right;">Total</th>
                                                 <th  style="text-align: right;"><input hidden value="<?php echo (isset($so_total)?$so_total:0);?>" name="invoice_total" id="invoice_total"><span id="inv_total"><?php echo number_format($so_total,2);?></span></th>
                                             </tr> 

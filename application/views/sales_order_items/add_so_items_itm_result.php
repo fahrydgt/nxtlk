@@ -155,14 +155,14 @@ $(document).ready(function() {
 //                alert($(this).closest('div').attr('name'));
                 var swipe_for = parseFloat($(this).closest('div').attr('name'));
                     if(direction=='left'){
-//                        $('#thumb-right-click').trigger('click'); 
+                        $('#thumb-right-click').trigger('click'); 
                         swipe_for++;
-                        $('.swipeitm_'+swipe_for).trigger('click');
+//                        $('.swipeitm_'+swipe_for).trigger('click');
                     }
                     if(direction=='right'){
-//                        $('#thumb-left-click').trigger('click');
+                        $('#thumb-left-click').trigger('click');
                         swipe_for--;
-                        $('.swipeitm_'+swipe_for).trigger('click');
+//                        $('.swipeitm_'+swipe_for).trigger('click');
                     }
                 }
               });

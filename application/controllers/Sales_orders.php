@@ -557,6 +557,7 @@ class Sales_orders extends CI_Controller {
             // create new PDF document
             $pdf = new Pdf(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
             $pdf->fl_header='header_am';//invice bg
+            $pdf->fl_data_arr=array('order_no'=>$inv_dets['sales_order_no']);//invice bg
             
             // set document information
             $pdf->SetCreator(PDF_CREATOR);
@@ -605,7 +606,7 @@ class Sales_orders extends CI_Controller {
                             <td colspan="2" align="center"><h1>Sales Order</h1></td>
                         </tr>  
                         <tr>
-                            <td>Customer: '.$inv_dets['customer_name'].'</td>
+                            <td>Sold to: '.$inv_dets['customer_name'].'</td>
                             <td align="right">Branch: '.$inv_dets['branch_name'].'</td>
                         </tr>
                         <tr>
@@ -638,7 +639,7 @@ class Sales_orders extends CI_Controller {
                                          <td width="20%" style="text-align: right;">'.$inv_dets['symbol_left'].' '. number_format($inv_itm['sub_total'],2).'</td> 
                                     </tr> ';
                          $order_total+=$inv_itm['sub_total'];
-                     }
+                     } 
                      $html .= '
                                 <tr><td  colspan="5"></td></tr></tbody></table>';  
             $html .= '
@@ -676,13 +677,13 @@ class Sales_orders extends CI_Controller {
             
             $pdf->SetFont('times', '', 12.5, '', false);
             $pdf->SetTextColor(255,125,125);           
-            $pdf->Text(160,20,$inv_dets['sales_order_no']);
+//            $pdf->Text(160,20,$inv_dets['sales_order_no']);
             // force print dialog
             $js = 'this.print();';
 //            $js = 'print(true);';
             // set javascript
             $pdf->IncludeJS($js);
-            $pdf->Output('example_003.pdf', 'I');
+            $pdf->Output($inv_dets['sales_order_no'].'.pdf', 'I');
                 
         }
         

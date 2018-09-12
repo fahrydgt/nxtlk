@@ -112,23 +112,23 @@ $(document).ready(function() {
               item_click_pop(this.id);
     });
     
-        $('#item_contents_swipe').swipe( {
-            
-                //Generic swipe handler for all directions
-                swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-//                    alert()
-//                alert($(this).closest('div').attr('name'));
-                var page_swip_no = parseFloat($("#page_count_str").val());
-//                alert($("#page_count_str").val())
-                    if(direction=='left'){ 
-                            page_swip_no++; 
-                        }
-                    if(direction=='right'){ 
-                        page_swip_no--; 
-                    }
-                $('#pagination_'+page_swip_no).trigger('click');
-                }
-            });
+//        $('#item_contents_swipe').swipe( {
+//            
+//                //Generic swipe handler for all directions
+//                swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+////                    alert()
+////                alert($(this).closest('div').attr('name'));
+//                var page_swip_no = parseFloat($("#page_count_str").val());
+////                alert($("#page_count_str").val())
+//                    if(direction=='left'){ 
+//                            page_swip_no++; 
+//                        }
+//                    if(direction=='right'){ 
+//                        page_swip_no--; 
+//                    }
+//                $('#pagination_'+page_swip_no).trigger('click');
+//                }
+//            });
     
     
                $('#thumb-right-click').click(function(){

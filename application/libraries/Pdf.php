@@ -131,6 +131,11 @@ class Pdf extends TCPDF
         $image_file = COMPANY_LOGO.$company_dets[0]['logo'];
         $this->Image($image_file, 9, 5, '', 25, 'JPG', '', 'T', false, 300, '', false, false, 0, false, false, false);
         $fontname = TCPDF_FONTS::addTTFfont('storage/fonts/CanelaBarkBold_PERSONAL.ttf', 'TrueTypeUnicode', '', 96);
+        
+        //water_mark 
+        $image_file = DEFAULT_IMAGE_LOC.'logo_water_mark.png';
+        $this->Image($image_file, 30, 95,  150, '', 'PNG', '', 'T', false, 72, '', false, false, 0, false, false, false);
+        
         // use the font
         $this->SetFont($fontname, '', 15.5, '', false);
         $this->SetTextColor(48,75,105);

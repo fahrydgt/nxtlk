@@ -147,10 +147,7 @@ $(document).ready(function() {
                  });
             }
          }  
-        $('#exampleModalCenter').modal({
-            backdrop: 'static',
-            keyboard: false
-        })
+        $('#exampleModalCenter').modal('toggle');
         $('.item').swipe( {
                 //Generic swipe handler for all directions
                 swipe:function(event, direction, distance, duration, fingerCount, fingerData) {

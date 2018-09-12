@@ -50,10 +50,10 @@
                     <div class="carousel-inner"> 
                         ...
                     </div>
-                    <a id="thumb-left-click" class="left carousel-control" href="#carousel-example-generic"  >
+                    <a id="thumb-left-click" class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
                       <span class="fa fa-angle-left"></span>
                     </a>
-                    <a  id="thumb-right-click" class="right carousel-control" href="#carousel-example-generic" >
+                    <a  id="thumb-right-click" class="right carousel-control" href="#carousel-example-generic" data-slide="next">
                       <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="carousel-small-img row pad">  
@@ -109,39 +109,8 @@ $(document).ready(function() {
         add_item_to_order();
     });
     $('.itm_click').click(function(){
-              item_click_pop(this.id);
-    });
-    
-        $('#item_contents_swipe').swipe( {
-            
-                //Generic swipe handler for all directions
-                swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
-//                    alert()
-//                alert($(this).closest('div').attr('name'));
-                var page_swip_no = parseFloat($("#page_count_str").val());
-//                alert($("#page_count_str").val())
-                    if(direction=='left'){ 
-                            page_swip_no++; 
-                        }
-                    if(direction=='right'){ 
-                        page_swip_no--; 
-                    }
-                $('#pagination_'+page_swip_no).trigger('click');
-                }
-            });
-    
-    
-               $('#thumb-right-click').click(function(){
-                    item_click_next('left')
-               });
-               $('#thumb-left-click').click(function(){
-                    item_click_next('right')
-               });
-});
-    function item_click_pop(item_div_id){
-        
-        var id2 = item_div_id.split('_')[1];
-        var id21 = item_div_id.split('_')[0];
+        var id2 = (this.id).split('_')[1];
+        var id21 = (this.id).split('_')[0];
 //        alert(id2);
         var itm_data_jsn = $('[name="itm_data_'+id2+'"]').val(); 
         var itm_data = JSON.parse(itm_data_jsn);
@@ -178,25 +147,14 @@ $(document).ready(function() {
                  });
             }
          }  
-        $('#exampleModalCenter').modal({
-            backdrop: 'static',
-            keyboard: false
-        });
-//        $('#exampleModalCenter').modal('toggle');
-              $('.itm-thmb').click(function(){
-              var tmbimg_id = (this.id).split('_')[1]; 
-              var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
-                var dif = parseFloat(tmbimg_id)-parseFloat(active_mg);
-                $('#img_'+active_mg).removeClass('active');
-                $('#img_'+tmbimg_id).addClass('active'); 
-              });
-    }
-    function item_click_next(direction){
-        
+        $('#exampleModalCenter').modal('toggle');
+        $('.item').swipe( {
+                //Generic swipe handler for all directions
+                swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+                
 //                alert($(this).closest('div').attr('name'));
-                var swipe_for =  $('.carousel-inner #img_1').attr('name');
-//                alert(swipe_for)
-                if(swipe_for==9 && direction=='left'){ 
+                    var swipe_for = parseFloat($(this).closest('div').attr('name'));
+                    if(swipe_for==9 && direction=='left'){ 
                     var page_swip_no = parseFloat($("#page_count_str").val());
 //                    alert($("#page_count_str").val()) 
                     page_swip_no++; 
@@ -221,16 +179,45 @@ $(document).ready(function() {
                     if(direction=='left'){
 //                        $('#thumb-right-click').trigger('click'); 
                         swipe_for++;
-                        
-                        item_click_pop($('.swipeitm_'+swipe_for).attr('id'));
-//                        $('.swipeitm_'+swipe_for).trigger('click');
+                        $('.swipeitm_'+swipe_for).trigger('click');
                     }
                     if(direction=='right'){
 //                        $('#thumb-left-click').trigger('click');
                         swipe_for--;
-                        item_click_pop($('.swipeitm_'+swipe_for).attr('id'));
+                        $('.swipeitm_'+swipe_for).trigger('click');
                     }
-    }
+                }
+              });
+              $('.itm-thmb').click(function(){
+              var tmbimg_id = (this.id).split('_')[1]; 
+              var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
+                var dif = parseFloat(tmbimg_id)-parseFloat(active_mg);
+                $('#img_'+active_mg).removeClass('active');
+                $('#img_'+tmbimg_id).addClass('active'); 
+              });
+              
+    });
+    
+//        $('#item_contents_swipe').swipe( {
+//            
+//                //Generic swipe handler for all directions
+//                swipe:function(event, direction, distance, duration, fingerCount, fingerData) {
+////                    alert()
+////                alert($(this).closest('div').attr('name'));
+//                var page_swip_no = parseFloat($("#page_count_str").val());
+////                alert($("#page_count_str").val())
+//                    if(direction=='left'){ 
+//                            page_swip_no++; 
+//                        }
+//                    if(direction=='right'){ 
+//                        page_swip_no--; 
+//                    }
+//                $('#pagination_'+page_swip_no).trigger('click');
+//                }
+//            });
+    
+});
+ 
  
     function add_item_to_order(){ 
         $("#res1_fl").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Retrieving Data..');    

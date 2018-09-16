@@ -3,7 +3,8 @@
         cursor: pointer;
     }
 </style>
-<div id="item_contents_swipe" class="row ">        
+<div id="item_contents_swipe" class="row ">  
+<input hidden type="text" class="page_trackn" id="page_<?php echo $page_no;?>" value="<?php echo $page_no;?>">      
     <?php
     
 //        echo '<pre>';        print_r($search_list_items_chunks); die;
@@ -15,7 +16,7 @@
             echo form_hidden('itm_data_'.$search['id'], json_encode($search));
             echo '<div style="padding:5px;" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div id="'.$j.'_'.$search['id'].'"  class="thumbnail itm_click swipeitm_'.$j.'">
-                          <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100%;height:100px;;overflow: hidden"></a>
+                          <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100%;height:200px;;overflow: hidden"></a>
 
                           <div class="caption">
                               <div class="mailbox-attachment-info">
@@ -33,82 +34,15 @@
     }
     ?>
 </div>
-
-
-<!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-  <div class="modal-dialog " role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Nextlook Item</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-          </div>
-          <div class="modal-body">
-            <?php echo form_open("", 'id="form_itm"')?>  
-   
-            <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
-                    <div class="carousel-inner"> 
-                        ...
-                    </div>
-                    <a id="thumb-left-click" class="left carousel-control" href="#carousel-example-generic"  >
-                      <span class="fa fa-angle-left"></span>
-                    </a>
-                    <a  id="thumb-right-click" class="right carousel-control" href="#carousel-example-generic" >
-                      <span class="fa fa-angle-right"></span>
-                    </a>
-                    <div class="carousel-small-img row pad">  
-                    </div>
-              </div> 
-             <div class="caption">
-                <div class="mailbox-attachment-info">
-                  <div class="mailbox-attachment-name">
-                      <h5>NAME : <span id="modal_item_desc">--</span></h5>
-                      <h5>ITEM NO : <span id="modal_item_code">--</span></h5>
-                      <h5>ITEM DESC : <span id="modal_item_info">--</span></h5>
-                      <div class="row">
-                          <div class="col-md-6  col-sm-6  col-xs-6">
-                                UNITS : <span id="modal_item_uom">--</span>
-                                <input name="modal_qty" class="form-control" type="number" id="modal_qty" min="1" value="1">
-                            </div>
-                          <div class="col-md-6  col-sm-6  col-xs-6">
-                                Price : <span id="modal_item_price"></span>
-                                <input name="modal_price" class="form-control" type="text" id="modal_price" min="0" value="0">
-                            </div>
-                      </div> 
-                      <input hidden="" name="modal_itm_id" readonly type="text" id="modal_itm_id" value="">
-                      <input hidden="" name="order_id" readonly type="text" id="order_id" value="<?php echo (isset($order_id))?$order_id:0;;?>">
-                      <input  hidden="" name="item_code_txt" readonly type="text" id="item_code_txt" value="">
-                      <input  hidden="" name="item_uom_id_txt" readonly type="text" id="item_uom_id_txt" value="">
-                      <input  hidden="" name="item_det_json" readonly type="text" id="item_det_json" value="">
-                      <div id="res1_fl"></div>
-                  </div> 
-                  </div>  
-
-          </div>
-          <div class="modal-footer"> 
-              <div class="row">
-                  <div style="padding-top: 5px;" class="col-md-6 col-sm-6  col-xs-6">
-                      <a id="confirm_order_item" type="button" class="btn btn-block btn-success btn-lg">Add to Order</a>
-                  </div>
-                  <div style="padding-top: 5px;" class="col-md-6 col-sm-6  col-xs-6">
-                        <a type="button" class="btn btn-block btn-primary btn-lg" data-dismiss="modal">Back</a>
-                  </div>
-              </div>
-          </div>
-              <?php echo form_close();?>
-        </div>
-      </div>
-</div>
+<?php $this->load->view('sales_order_items/so_modals/item_pop_modal.php'); ?>
 
 <script>
  
 $(document).ready(function() {
     
-    $('#confirm_order_item').click(function(){
-//        alert()
-        add_item_to_order();
-    });
+    
     $('.itm_click').click(function(){
+//              item_click_pop2_del(this.id);
               item_click_pop(this.id);
     });
     
@@ -130,15 +64,28 @@ $(document).ready(function() {
 //                }
 //            });
     
-    
-               $('#thumb-right-click').click(function(){
-                    item_click_next('left')
-               });
-               $('#thumb-left-click').click(function(){
-                    item_click_next('right')
-               });
+     
+               
+//               $(document).click(function(){
+//                   if(($("#exampleModalCenter").data('bs.modal') || {}).isShown){
+//                        
+//                        console.log($('.modal-body').data('clicked'))
+//                            alert()
+//                         
+//                    }
+//               })
+               
+//               $('#exampleModalCenter').on('shown.bs.modal', function (e) { 
+//                    alert("I want this to appear after the modal has opened!");
+//                    
+//               
+//                if($('.modal-body').data('clicked')) {
+//                    alert('yes');
+//                }
+//                });
+                 
 });
-    function item_click_pop(item_div_id){
+    function item_click_pop2_del(item_div_id){
         
         var id2 = item_div_id.split('_')[1];
         var id21 = item_div_id.split('_')[0];
@@ -191,90 +138,5 @@ $(document).ready(function() {
                 $('#img_'+tmbimg_id).addClass('active'); 
               });
     }
-    function item_click_next(direction){
-        
-//                alert($(this).closest('div').attr('name'));
-                var swipe_for =  $('.carousel-inner #img_1').attr('name');
-//                alert(swipe_for)
-                if(swipe_for==9 && direction=='left'){ 
-                    var page_swip_no = parseFloat($("#page_count_str").val());
-//                    alert($("#page_count_str").val()) 
-                    page_swip_no++; 
-                    swipe_for = 0;  
-                    $('#pagination_'+page_swip_no).trigger('click');  
-                    $('#exampleModalCenter').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    return false;
-                }
-                if(swipe_for==1 && direction=='right'){ 
-                    var page_swip_no = parseFloat($("#page_count_str").val());
-//                    alert($("#page_count_str").val()) 
-                    page_swip_no--; 
-                    swipe_for = 2;  
-                    $('#pagination_'+page_swip_no).trigger('click');  
-                    $('#exampleModalCenter').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    return false;
-                }
-                    if(direction=='left'){
-//                        $('#thumb-right-click').trigger('click'); 
-                        swipe_for++;
-                        
-                        item_click_pop($('.swipeitm_'+swipe_for).attr('id'));
-//                        $('.swipeitm_'+swipe_for).trigger('click');
-                    }
-                    if(direction=='right'){
-//                        $('#thumb-left-click').trigger('click');
-                        swipe_for--;
-                        item_click_pop($('.swipeitm_'+swipe_for).attr('id'));
-                    }
-    }
- 
-    function add_item_to_order(){ 
-        $("#res1_fl").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Retrieving Data..');    
-        set_list_cookies()
-        return false;
-        var itm_data_jsn = $('[name="itm_data_'+$('[name="modal_itm_id"]').val()+'"]').val();  
-        var itm_data = JSON.parse(itm_data_jsn);
-        
-            $.ajax({
-                url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
-                type: 'post',
-                data : {function_name:'add_items_order',item_dets:itm_data,order_id:$('#order_id').val(),modal_qty:$('#modal_qty').val(),modal_price:$('#modal_price').val()},
-                success: function(result){
-//                    alert(result)
-                    if(result){
-                        $("#res1_fl").html('<br><p style="color:green;">Item added Suucessfully</p>');
-                    }else{
-                        $("#res1_fl").html('<br><p style="color:red;">Error! Something went wrong. Please Retry!</p>');
-                    }
-                       
-                }
-            });
-	}
-        
-        function set_list_cookies(){
-            var tabl_data = jQuery('#form_itm').serializeArray(); 
-            var input_lengt = tabl_data.length;
-            tabl_data[input_lengt] = {name:'function_name',value:'item_list_set_cookies'}
-//            alert()
-            $.ajax({
-			url: "<?php echo site_url('Sales_order_items/fl_ajax?function_name=item_list_set_cookies');?>",
-			type: 'post',
-			data : tabl_data,
-			success: function(result){
-                                $("#res1_fl").html(result);
-                                if(result){
-                                    $("#res1_fl").html('<br><p style="color:green;"><span class="fa fa-check-circle"></span> Item added to order list.</p>');
-                                    $('#modal_qty').val(1);
-                                }else{
-                                    $("#res1_fl").html('<br><p style="color:red;">Error! Something went wrong. Please Retry!</p>');
-                                }
-                                jQuery('#res1_fl p').delay(1000).slideUp(2000);
-                        }
-            });
-        }
         
     </script>

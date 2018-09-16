@@ -524,8 +524,36 @@ class Sales_order_items extends CI_Controller {
                 $data['search_list_items_chunks'] = $search_list_items_chunks[($input['page_no']-1)];
                 $data['res_page_count'] = count($search_list_items_chunks);
             }
+            $data['page_no'] = $input['page_no'];
+            $data['order_id'] = $input['order_id'];
 //		$data_view['search_list'] = $this->Sales_order_items_model->search_result();
             $this->load->view('sales_order_items/add_so_items_itm_result',$data);
+	}
+        function search_items_for_modal(){ 
+            $input = $this->input->post();
+//            echo '<pre>';            print_r($inputs); die;
+//            $data['sales_order_det'] = $this->Sales_order_items_model->get_single_row($input['order_id']);
+            $search_data=array(  
+                                'category_id' => $input['category_id'],  
+                                'item_code' => $input['item_code'],  
+                                'price_type_id' =>16, //whole sale
+                                ); 
+            $data['search_list_items'] = $this->Sales_order_items_model->search_result($search_data);
+            $data['search_list_cats'] = $data['search_list_items_chunks'] = array();
+//            $data['order_id'] = $input['order_id'];
+            foreach ($data['search_list_items'] as $item){
+                $data['search_list_cats'][$item['cat_id']]=$item;
+            }
+            if(!empty($data['search_list_items'])) {
+                $search_list_items_chunks = array_chunk ($data['search_list_items'], 9);
+                $data['search_list_items_chunks'] = $search_list_items_chunks[($input['page_no']-1)];
+                $data['res_page_count'] = count($search_list_items_chunks);
+            }
+            $data['page_no'] = $input['page_no'];
+            $data['order_id'] = $input['order_id'];
+            $this->load->view('sales_order_items/so_modals/item_pop_modal_result',$data);
+//            echo json_encode($data_res);
+            
 	}
         
         function get_single_item(){
@@ -536,8 +564,11 @@ class Sales_order_items extends CI_Controller {
         }
         function test(){
             
-            $data['main_content']='test';  
-            $this->load->view('includes/template',$data); 
+            
+            
+            
+            $data['main_content']='test_1';  
+            $this->load->view('test_1'); 
             die;
 //            $this->load->view('invoices/sales_invoices');
             $data = $this->Sales_order_items_model->get_single_item(1002,15);
@@ -728,8 +759,8 @@ class Sales_order_items extends CI_Controller {
             $inputs = $this->input->post();
             unset($inputs['function_name']);       
             
-            $list_data_jsn = $this->Sales_order_items_model->get_temp_so_item($inputs['order_id'])['value'];
-            if(!empty($list_data_jsn))$temp_data = json_decode($list_data_jsn);
+            $list_data_jsn = $this->Sales_order_items_model->get_temp_so_item($inputs['order_id']);
+            if(!empty($list_data_jsn))$temp_data = json_decode($list_data_jsn['value']);
             $temp_data[]=$inputs; 
              
             $data =  array(

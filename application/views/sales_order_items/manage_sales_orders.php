@@ -354,6 +354,25 @@ endswitch;
 
         </div>
 </div>
+<!--     //image Lightbox-->
+     <div tabindex="-1" class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+            <div class="modal-content"> 
+                  <div align="" class="modal-body">
+                      <div><center><img class="model_img"   src=""></center> </div>
+                  </div>
+                  <div class="modal-footer">
+                          <button class="btn btn-default" data-dismiss="modal">Close</button>
+                  </div>
+             </div>
+            </div>
+          </div>
+ <style>
+    .modal-dialog {width:800px;}
+    .thumbnail {margin-bottom:6px;}
+    .modal-body {width:800px; align:center;}
+    .model_img {width: 500px;}
+</style>
     
 <script>
     
@@ -374,6 +393,12 @@ $(document).keypress(function(e) {
         }
     });
 $(document).ready(function(){
+    $('.thumbnail').click(function(){ 
+            var title = $(this).parent('a').attr("src");
+            $(".model_img").attr("src",this.src); 
+            $('#myModal').modal({show:true});
+
+    }); 
     $('#item_code').focus();
     $('.select2').on("select2:close", function () { $(this).focus(); });
     
@@ -601,29 +626,27 @@ $(document).ready(function(){
                                 $('#customer_phone').val(obj2.phone); 
 
                                }
-                   });
-                   
+                   }); 
             }
-        function set_item_list_cookie(){
-                                
+            
+        function set_item_list_cookie(){ 
                     $.ajax({
                            url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
                            type: 'post',
                            data : {function_name:'get_cookie_data_itms',order_id:'<?php echo $result['id'];?>'},
                            success: function(result){
-                               
+                                 
                                 var obj1 = JSON.parse(result);
-                                console.log(obj1);
-                                 $(obj1).each(function (index, ob) {   
-                                    var obj2 = JSON.parse(ob.item_det_json); 
-                                    set_item_list_ajax(obj2.item_code,ob.modal_price,ob.modal_qty); 
+                                 $(obj1).each(function (index, ob) {
+//                                    var obj2 = JSON.parse(ob.item_det_json); 
+                                    set_item_list_ajax(ob.item_code_txt,ob.modal_price,ob.modal_qty); 
                                  });
-//                                $("#search_result_1").html(obj1); 
-
+//                                $("#search_result_1").html(obj1);  
                                }
                    });
                    
             }
+            
     function set_item_list_ajax(item_code,item_price,itm_qty,itm_qty_2=0){
 //    alert(itm_qty); return false;
         $.ajax({
@@ -647,6 +670,7 @@ $(document).ready(function(){
 
                                        var row_str = '<tr style="padding:10px; background:#FBB8B8;" id="tr_'+res2.id+rowCount+'">'+ 
                                                                '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_code]" value="'+item_code+'">'+item_code+'</td>'+
+                                                               '<td><img class="thumbnail" style="width:30px;height:30px;" src="<?php echo base_url().ITEM_IMAGES;?>'+res2.id+'/'+res2.image+'"></td>'+
                                                                '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_desc]" value="'+res2.item_name+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_id]" value="'+res2.id+'">'+res2.item_name+'</td>'+
                                                                '<td align="right"><a id="minusqty_'+res2.id+rowCount+'" class="btn_minus btn inline btn-sm btn-warning"><span class="fa fa-minus"></span></a>'+
                                                                                 '<input id="qty_'+res2.id+rowCount+'" class="inline form-control input-md" style="width:100px;"  type="number" min="0" name="inv_items['+res2.id+rowCount+'][item_quantity]" value="'+itm_qty+'">'+
@@ -681,6 +705,12 @@ $(document).ready(function(){
                                            $('#inv_total').text(tot_amt.toFixed(2)); 
                                        });
                                         
+                                        $('.thumbnail').click(function(){ 
+                                                var title = $(this).parent('a').attr("src");
+                                                $(".model_img").attr("src",this.src); 
+                                                $('#myModal').modal({show:true});
+
+                                        }); 
                                        $('#minusqty_'+res2.id+rowCount).click(function(){
                                            var id1 = (this.id).split('_')[1];
 //                                           alert($('#qty_'+id1).val())

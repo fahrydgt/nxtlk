@@ -50,10 +50,10 @@
                     <div class="carousel-inner"> 
                         ...
                     </div>
-                    <a id="thumb-left-click" class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+                    <a id="thumb-left-click" class="left carousel-control" href="#carousel-example-generic"  >
                       <span class="fa fa-angle-left"></span>
                     </a>
-                    <a  id="thumb-right-click" class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+                    <a  id="thumb-right-click" class="right carousel-control" href="#carousel-example-generic" >
                       <span class="fa fa-angle-right"></span>
                     </a>
                     <div class="carousel-small-img row pad">  
@@ -147,6 +147,10 @@ $(document).ready(function() {
                  });
             }
          }  
+//        $('#exampleModalCenter').modal({
+//            backdrop: 'static',
+//            keyboard: false
+//        });
         $('#exampleModalCenter').modal('toggle');
         $('.item').swipe( {
                 //Generic swipe handler for all directions
@@ -216,8 +220,53 @@ $(document).ready(function() {
 //                }
 //            });
     
+    
+               $('#thumb-right-click').click(function(){
+                    item_click_next('left')
+               });
+               $('#thumb-left-click').click(function(){
+                    item_click_next('right')
+               });
 });
  
+    function item_click_next(direction){
+        
+//                alert($(this).closest('div').attr('name'));
+                var swipe_for =  $('.carousel-inner #img_1').attr('name');
+//                alert(swipe_for)
+                if(swipe_for==9 && direction=='left'){ 
+                    var page_swip_no = parseFloat($("#page_count_str").val());
+//                    alert($("#page_count_str").val()) 
+                    page_swip_no++; 
+                    swipe_for = 0;  
+                    $('#pagination_'+page_swip_no).trigger('click');  
+                    $('#exampleModalCenter').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    return false;
+                }
+                if(swipe_for==1 && direction=='right'){ 
+                    var page_swip_no = parseFloat($("#page_count_str").val());
+//                    alert($("#page_count_str").val()) 
+                    page_swip_no--; 
+                    swipe_for = 2;  
+                    $('#pagination_'+page_swip_no).trigger('click');  
+                    $('#exampleModalCenter').modal('hide');
+                    $('body').removeClass('modal-open');
+                    $('.modal-backdrop').remove();
+                    return false;
+                }
+                    if(direction=='left'){
+//                        $('#thumb-right-click').trigger('click'); 
+                        swipe_for++;
+                        $('.swipeitm_'+swipe_for).trigger('click');
+                    }
+                    if(direction=='right'){
+//                        $('#thumb-left-click').trigger('click');
+                        swipe_for--;
+                        $('.swipeitm_'+swipe_for).trigger('click');
+                    }
+    }
  
     function add_item_to_order(){ 
         $("#res1_fl").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Retrieving Data..');    

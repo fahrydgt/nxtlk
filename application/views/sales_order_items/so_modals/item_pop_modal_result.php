@@ -14,24 +14,24 @@
                           echo '<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                   <div class="carousel-inner">'; 
                                   if($itm['image']!='')
-                                      echo '<div id="img_1"  name="'.$itm['id'].'" class="item active"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'" alt="First slide" style="width:100%"></div>';
+                                      echo '<div id="'.$itm['id'].'_img_1"  name="item'.$itm['id'].'[]" class="item active"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'" alt="First slide" style="width:100%"></div>';
                                        $cn=2;
                                      if($itm['images']!='' && isset($itm['images'])){
                                          $other_imgs = json_decode($itm['images']);
                                          foreach ($other_imgs as $other_img){
-                                           echo '<div id="img_'.$cn.'" name="'.$itm['id'].'" class="item"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'" alt="Otehr slide" style="width:100%"></div>';
+                                           echo '<div id="'.$itm['id'].'_img_'.$cn.'" name="item'.$itm['id'].'[]" class="item"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'" alt="Otehr slide" style="width:100%"></div>';
                                            $cn++;
                                          }  
                                       }
                                  echo ' </div> 
                                   <div class="carousel-small-img row pad" style="margin:5px"> 
-                                    <img id="imgtmb_1" style="border-width:5px;height:80px;  border-style:ridge;" class="itm-thmb pad col-md-3 col-sm-3 col-xs-3 border-left" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'">';
+                                    <img id="'.$itm['id'].'_imgtmb_1" style="border-width:5px;height:80px;  border-style:ridge;" class="itm-thmb pad col-md-3 col-sm-3 col-xs-3 border-left" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'">';
                                  
                                     $cn=2;
                                      if($itm['images']!='' && isset($itm['images'])){
                                          $other_imgs = json_decode($itm['images']);
                                          foreach ($other_imgs as $other_img){
-                                            echo '<img id="imgtmb_'.$cn.'" style="border-width:5px;height:80px; border-style:ridge;" class="pad col-md-3 col-sm-3 col-xs-3 itm-thmb" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'">';
+                                            echo '<img id="'.$itm['id'].'_imgtmb_'.$cn.'" style="border-width:5px;height:80px; border-style:ridge;" class="pad col-md-3 col-sm-3 col-xs-3 itm-thmb" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'">';
                                            $cn++;
                                          }  
                                       }

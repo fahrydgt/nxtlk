@@ -24,7 +24,7 @@ $(document).ready(function(){
             var cat = (cat_id!='')?cat_id:$('#category_id').val();
             $("#result_search").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Retrieving Data..');    
             $.ajax({
-			url: "<?php echo site_url('Sales_orders/fl_ajax');?>",
+			url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
 			type: 'post',
 			data : {function_name:'search_cats',category_id:cat,item_code:$('#item_code').val(),order_id:$('[name="order_id"]').val()},
 			success: function(result){
@@ -38,7 +38,7 @@ $(document).ready(function(){
             $("#result_search_items").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Retrieving Data..');    
               
             $.ajax({
-                    url: "<?php echo site_url('Sales_orders/fl_ajax');?>",
+                    url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
                     type: 'post',
                     data : {function_name:'pagination_dets',category_id:cat,item_code:$('#item_code').val(),order_id:$('[name="order_id"]').val()},
                     success: function(result){
@@ -47,7 +47,7 @@ $(document).ready(function(){
                         var opts = {
                             onPageClick: function (event, page) {
                                 $.ajax({
-                                    url: "<?php echo site_url('Sales_orders/fl_ajax');?>",
+                                    url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
                                     type: 'post',
                                     data : {function_name:'search_items',category_id:cat,item_code:$('#item_code').val(),order_id:$('[name="order_id"]').val(),page_no:page},
                                     success: function(result){

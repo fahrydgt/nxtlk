@@ -8,11 +8,11 @@
 </style> 
 
 <!-- Modal -->
-<div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+<div class="modal fade" id="exampleModalCenter" style="height: 100%;" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
   <div class="modal-dialog " role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Nextlook Item</h5>
+            <h5 class="modal-title" id="exampleModalLongTitle">Nextlook Item <?php echo $order_id;?></h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
           </div>
           <div class="modal-body">
@@ -35,24 +35,24 @@
                           echo '<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
                                   <div class="carousel-inner">'; 
                                   if($itm['image']!='')
-                                      echo '<div id="img_1"  name="'.$itm['id'].'" class="item active"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'" alt="First slide" style="width:100%"></div>';
+                                      echo '<div id="'.$itm['id'].'_img_1"  name="item'.$itm['id'].'[]" class="item active"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'" alt="First slide" style="width:100%"></div>';
                                        $cn=2;
                                      if($itm['images']!='' && isset($itm['images'])){
                                          $other_imgs = json_decode($itm['images']);
                                          foreach ($other_imgs as $other_img){
-                                           echo '<div id="img_'.$cn.'" name="'.$itm['id'].'" class="item"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'" alt="Otehr slide" style="width:100%"></div>';
+                                           echo '<div id="'.$itm['id'].'_img_'.$cn.'" name="item'.$itm['id'].'[]" class="item"><img src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'" alt="Otehr slide" style="width:100%"></div>';
                                            $cn++;
                                          }  
                                       }
                                  echo ' </div> 
                                   <div class="carousel-small-img row pad" style="margin:5px"> 
-                                    <img id="imgtmb_1" style="border-width:5px;height:80px;  border-style:ridge;" class="itm-thmb pad col-md-3 col-sm-3 col-xs-3 border-left" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'">';
+                                    <img id="'.$itm['id'].'_imgtmb_1" style="border-width:5px;height:80px;  border-style:ridge;" class="itm-thmb pad col-md-3 col-sm-3 col-xs-3 border-left" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/'.$itm['image'].'">';
                                  
                                     $cn=2;
                                      if($itm['images']!='' && isset($itm['images'])){
                                          $other_imgs = json_decode($itm['images']);
                                          foreach ($other_imgs as $other_img){
-                                            echo '<img id="imgtmb_'.$cn.'" style="border-width:5px;height:80px; border-style:ridge;" class="pad col-md-3 col-sm-3 col-xs-3 itm-thmb" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'">';
+                                            echo '<img id="'.$itm['id'].'_imgtmb_'.$cn.'" style="border-width:5px;height:80px; border-style:ridge;" class="pad col-md-3 col-sm-3 col-xs-3 itm-thmb" src="'.base_url(ITEM_IMAGES).'/'.$itm['id'].'/other/'.$other_img.'">';
                                            $cn++;
                                          }  
                                       }
@@ -75,7 +75,7 @@
                                           </div>
                                     </div> 
                                     <input hidden="" name="modal_itm_id" readonly type="text" id="modal_itm_id" value="'.$itm['id'].'">
-                                    <input hidden="" name="order_id" readonly type="text" id="order_id" value="'.((isset($order_id))?$order_id:0).'">
+                                    <input hidden="" name="order_id" readonly type="text" id="item_order_id" value="'.((isset($order_id))?$order_id:0).'">
                                     <input  hidden="" name="item_code_txt" readonly type="text" id="item_code_txt" value="'.$itm['item_code'].'">
                                     <input  hidden="" name="item_uom_id_txt" readonly type="text" id="item_uom_id_txt" value="'.$itm['item_uom_id'].'">
                                     <input  hidden="" name="item_det_json" readonly type="text" id="item_det_json" value="0">
@@ -120,18 +120,13 @@
         $('.confirm_order_item').click(function(){
             var itm_id1 = (this.id).split('_')[0];
             add_item_to_order(itm_id1);
-        });
+        }); 
     });
     function item_click_pop(item_div_id){
             var cat =  $('#cat_id_clicked').val();
             var id2 = item_div_id.split('_')[1];
             var id21 = item_div_id.split('_')[0];
 //            cat = 12;
-            
-            $('#exampleModalCenter').modal({
-                backdrop: 'static',
-                keyboard: false
-            }); 
                 
         $('.hero-carousel').flickity('resize');
         $('.hero-carousel').flickity( 'select', (id21-1) );
@@ -156,6 +151,7 @@
                                         type: 'post',
                                         data : {function_name:'search_items_for_modal',category_id:cat,item_code:$('#item_code').val(),order_id:$('[name="order_id"]').val(),page_no:page_to_load},
                                         success: function(result){
+                                            console.log(result)
                                                 var cell_elm = $(result); 
 //                                            alert('Totalitems: '+totslide_flickt+'---pages_all'+res_page_count+'----Loadpage:'+page_to_load); 
                                             $('.hero-carousel').flickity( 'append', cell_elm ); 
@@ -163,14 +159,7 @@
                                                         $('.confirm_order_item').click(function(){
                                                                var itm_id1 = (this.id).split('_')[0];
                                                                add_item_to_order(itm_id1);
-                                                        });
-                                                        $('.itm-thmb').click(function(){
-                                                                var tmbimg_id = (this.id).split('_')[1]; 
-                                                                var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
-                                                                var dif = parseFloat(tmbimg_id)-parseFloat(active_mg); 
-                                                                $('#img_'+active_mg).removeClass('active');
-                                                                $('#img_'+tmbimg_id).addClass('active'); 
-                                                        });
+                                                        });  
                                         }
                                     });
                                 }
@@ -189,7 +178,7 @@
                     $.ajax({
                                         url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
                                         type: 'post',
-                                        data : {function_name:'search_items_for_modal',category_id:cat,item_code:$('#item_code').val(),order_id:$('[name="order_id"]').val(),page_no:page_to_load},
+                                        data : {function_name:'search_items_for_modal',category_id:cat,item_code:$('#item_code').val(),order_id:$('#order_id').val(),page_no:page_to_load},
                                         success: function(result){
                                                 var cell_elm = $(result);
                                                 $('.hero-carousel').flickity( 'insert', cell_elm,0 ); 
@@ -197,70 +186,34 @@
                                                 $('.confirm_order_item').click(function(){
                                                        var itm_id1 = (this.id).split('_')[0];
                                                        add_item_to_order(itm_id1);
-                                                });
-                                                $('.itm-thmb').click(function(){
-                                                        var tmbimg_id = (this.id).split('_')[1]; 
-                                                        var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
-                                                        var dif = parseFloat(tmbimg_id)-parseFloat(active_mg); 
-                                                        $('#img_'+active_mg).removeClass('active');
-                                                        $('#img_'+tmbimg_id).addClass('active'); 
-                                                });
+                                                }); 
                                         }
                                     });
                                 }
             } 
+            
                 
         });
-                  $('.itm-thmb').click(function(){
-                    var tmbimg_id = (this.id).split('_')[1]; 
-                    var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
-                      var dif = parseFloat(tmbimg_id)-parseFloat(active_mg); 
-                      $('#img_'+active_mg).removeClass('active');
-                      $('#img_'+tmbimg_id).addClass('active'); 
-                    });
-         
+                  
+                $('.itm-thmb').click(function(){
+                        var tmbimg_id = (this.id).split('_')[2]; 
+                        var active_mg = $('.carousel-inner .active').attr('id').split('_')[2]; 
+//                        alert(active_mg)
+                        var oldimg = (this.id).split('_')[0]+'_img_'+active_mg;
+                        var clickedimg =(this.id).split('_')[0]+'_img_'+tmbimg_id; 
+//                        alert('old:'+oldimg+'---- new'+clickedimg)
+                        $('[name="item'+(this.id).split('_')[0]+'[]"]').removeClass('active');
+//                        $('#'+oldimg).removeClass('active');
+                        $('#'+clickedimg).addClass('active'); 
+                });
     
-    }
-    function item_click_next(direction){
-        
-//                alert($(this).closest('div').attr('name'));
-                var swipe_for =  $('.carousel-inner #img_1').attr('name');
-//                alert(swipe_for)
-                if(swipe_for==9 && direction=='left'){ 
-                    var page_swip_no = parseFloat($("#page_count_str").val());
-//                    alert($("#page_count_str").val()) 
-                    page_swip_no++; 
-                    swipe_for = 0;  
-                    $('#pagination_'+page_swip_no).trigger('click');  
-                    $('#exampleModalCenter').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    return false;
-                }
-                if(swipe_for==1 && direction=='right'){ 
-                    var page_swip_no = parseFloat($("#page_count_str").val());
-//                    alert($("#page_count_str").val()) 
-                    page_swip_no--; 
-                    swipe_for = 2;  
-                    $('#pagination_'+page_swip_no).trigger('click');  
-                    $('#exampleModalCenter').modal('hide');
-                    $('body').removeClass('modal-open');
-                    $('.modal-backdrop').remove();
-                    return false;
-                }
-                    if(direction=='left'){
-//                        $('#thumb-right-click').trigger('click'); 
-                        swipe_for++;
-                        
-                        item_click_pop($('.swipeitm_'+swipe_for).attr('id'));
-//                        $('.swipeitm_'+swipe_for).trigger('click');
-                    }
-                    if(direction=='right'){
-//                        $('#thumb-left-click').trigger('click');
-                        swipe_for--;
-                        item_click_pop($('.swipeitm_'+swipe_for).attr('id'));
-                    }
-    }
+            
+            $('#exampleModalCenter').modal('toggle'); 
+//            $('#exampleModalCenter').modal({
+//                backdrop: 'static',
+//                keyboard: false
+//            }); 
+    } 
  
     function add_item_to_order(itm_id){
         $("#"+itm_id+"_res1_fl").html('<i class="fa fa-spinner fa-spin" aria-hidden="true"></i> Retrieving Data..');    
@@ -280,6 +233,7 @@
                     }else{
                         $("#"+itm_id+"_res1_fl").html('<br><p style="color:red;">Error! Something went wrong. Please Retry!</p>');
                     }
+                    $('.modal-body',this).css({width:'auto',height:'auto', 'max-height':'100%'});
                        
                 }
             });
@@ -303,6 +257,7 @@
                                 }else{
                                     $("#"+itm_id+"_res1_fl").html('<br><p style="color:red;">Error! Something went wrong. Please Retry!</p>');
                                 }
+                                $('.modal-body',this).css({width:'auto',height:'auto', 'max-height':'100%'});
                                 jQuery('#'+itm_id+'_res1_fl p').delay(1000).slideUp(2000);
                         }
             });

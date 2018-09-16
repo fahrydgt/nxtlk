@@ -16,7 +16,7 @@
             echo form_hidden('itm_data_'.$search['id'], json_encode($search));
             echo '<div style="padding:5px;" class="col-lg-4 col-md-4 col-sm-4 col-xs-4">
                     <div id="'.$j.'_'.$search['id'].'"  class="thumbnail itm_click swipeitm_'.$j.'">
-                          <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100%;height:100px;;overflow: hidden"></a>
+                          <a > <img class="toResizeClass" src="'. base_url(ITEM_IMAGES.$search['id'].'/'.$search['image']).'" alt="'.$search['item_name'].'" style="width:100%;height:200px;;overflow: hidden"></a>
 
                           <div class="caption">
                               <div class="mailbox-attachment-info">
@@ -64,13 +64,7 @@ $(document).ready(function() {
 //                }
 //            });
     
-    
-               $('#thumb-right-click').click(function(){
-                    item_click_next('left')
-               });
-               $('#thumb-left-click').click(function(){
-                    item_click_next('right')
-               });
+     
                
 //               $(document).click(function(){
 //                   if(($("#exampleModalCenter").data('bs.modal') || {}).isShown){

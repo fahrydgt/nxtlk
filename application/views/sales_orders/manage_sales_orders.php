@@ -220,10 +220,10 @@ endswitch;
                                            <tr> 
                                                <th width="10%"  style="text-align: center;">Item Code</th> 
                                                <th width="4%" style="text-align: center;">Pic</th> 
-                                               <th width="20%" style="text-align: center;">Item Description</th> 
-                                               <th width="10%" style="text-align: center;">Quantity</th> 
-                                               <th width="15%" style="text-align: right;">Unit Cost</th>  
-                                               <th width="15%" style="text-align: right;">Total</th> 
+                                               <th width="18%" style="text-align: center;">Item Description</th> 
+                                               <th width="15%" style="text-align: center;">Quantity</th> 
+                                               <th width="13%" style="text-align: right;">Unit Cost</th>  
+                                               <th width="13%" style="text-align: right;">Total</th> 
                                                <th width="5%" style="text-align: center;">Action</th>
                                            </tr>
                                        </thead>
@@ -627,10 +627,9 @@ $(document).ready(function(){
                            success: function(result){
                                
                                 var obj1 = JSON.parse(result);
-                                console.log(obj1);
-                                 $(obj1).each(function (index, ob) {   
-                                    var obj2 = JSON.parse(ob.item_det_json); 
-                                    set_item_list_ajax(obj2.item_code,ob.modal_price,ob.modal_qty); 
+                                 $(obj1).each(function (index, ob) {
+//                                    var obj2 = JSON.parse(ob.item_det_json); 
+                                    set_item_list_ajax(ob.item_code_txt,ob.modal_price,ob.modal_qty); 
                                  });
 //                                $("#search_result_1").html(obj1); 
 
@@ -638,10 +637,10 @@ $(document).ready(function(){
                    });
                    
             }
-    function set_item_list_ajax(item_code,item_price,itm_qty,itm_qty_2=0){
+   function set_item_list_ajax(item_code,item_price,itm_qty,itm_qty_2=0){
 //    alert(itm_qty); return false;
         $.ajax({
-                               url: "<?php echo site_url('Sales_orders/fl_ajax');?>",
+                               url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
                                type: 'post',
                                data : {function_name:'get_single_item', item_code:item_code, customer_id:$('#customer_id').val(),price_type_id:$('#price_type_id').val()},
                                success: function(result){ 
@@ -659,17 +658,20 @@ $(document).ready(function(){
        //                                var item_total = qtyXprice - (parseFloat($('#item_discount').val())* 0.01 * qtyXprice);
                                        var item_total = qtyXprice;
 
-                                       var row_str = '<tr style="padding:10px; background:#FBB8B8;" id="tr_'+rowCount+'">'+ 
-                                                               '<td><input hidden name="inv_items['+rowCount+'][item_code]" value="'+item_code+'">'+item_code+'</td>'+
-                                                               '<td><input hidden name="inv_items['+rowCount+'][item_desc]" value="'+res2.item_name+'"><input hidden name="inv_items['+rowCount+'][item_id]" value="'+res2.id+'">'+res2.item_name+'</td>'+
-                                                               '<td align="right"><input hidden name="inv_items['+rowCount+'][item_quantity]" value="'+itm_qty+'"><input hidden name="inv_items['+rowCount+'][item_quantity_2]" value="'+((itm_qty_2==null)?0:itm_qty_2)+'">'+
-                                                               '<input hidden name="inv_items['+rowCount+'][item_quantity_uom_id]" value="'+res2.item_uom_id+'"><input hidden name="inv_items['+rowCount+'][item_quantity_uom_id_2]" value="'+res2.item_uom_id_2+'">'+
+                                       var row_str = '<tr style="padding:10px; background:#FBB8B8;" id="tr_'+res2.id+rowCount+'">'+ 
+                                                               '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_code]" value="'+item_code+'">'+item_code+'</td>'+
+                                                               '<td><img class="thumbnail" style="width:30px;height:30px;" src="<?php echo base_url().ITEM_IMAGES;?>'+res2.id+'/'+res2.image+'"></td>'+
+                                                               '<td><input hidden name="inv_items['+res2.id+rowCount+'][item_desc]" value="'+res2.item_name+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_id]" value="'+res2.id+'">'+res2.item_name+'</td>'+
+                                                               '<td align="right"><a id="minusqty_'+res2.id+rowCount+'" class="btn_minus btn inline btn-sm btn-warning"><span class="fa fa-minus"></span></a>'+
+                                                                                '<input id="qty_'+res2.id+rowCount+'" class="inline form-control input-md" style="width:100px;"  type="number" min="0" name="inv_items['+res2.id+rowCount+'][item_quantity]" value="'+itm_qty+'">'+
+                                                                                '<a id="plusqty_'+res2.id+rowCount+'" class="btn_plus btn inline btn-sm btn-primary"><span class="fa fa-plus"></span></a><input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_2]" value="'+((itm_qty_2==null)?0:itm_qty_2)+'">'+
+                                                               '<input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_uom_id]" value="'+res2.item_uom_id+'"><input hidden name="inv_items['+res2.id+rowCount+'][item_quantity_uom_id_2]" value="'+res2.item_uom_id_2+'"><span hidden>'+
                                                                                                                                                                                                                                                                                        itm_qty+' '+res2.unit_abbreviation;
                                        if(res2.unit_abbreviation_2!=null && res2.unit_abbreviation_2!=0){
                                            row_str = row_str + ' | ' + itm_qty_2+' '+res2.unit_abbreviation_2;
                                        }                                                                                                                                                                                                                                                                        
-                                       row_str = row_str + '</td> <td align="right"><input hidden name="inv_items['+rowCount+'][item_unit_cost]" value="'+item_price+'">'+parseFloat(item_price).toFixed(2)+'</td>'+ 
-                                                               '<td align="right"><input class="item_tots" hidden name="inv_items['+rowCount+'][item_total]" value="'+item_total+'">'+item_total.toFixed(2)+'</td>'+
+                                       row_str = row_str + '</span></td> <td align="right"><input hidden name="inv_items['+res2.id+rowCount+'][item_unit_cost]" value="'+item_price+'">'+parseFloat(item_price).toFixed(2)+'</td>'+ 
+                                                               '<td align="right"><input class="item_tots" hidden name="inv_items['+res2.id+rowCount+'][item_total]" value="'+item_total+'">'+item_total.toFixed(2)+'</td>'+
                                                                '<td width="5%"><button id="del_btn" type="button" class="del_btn_inv_row btn btn-danger"><i class="fa fa-trash"></i></button></td>'+
                                                            '</tr>';
                                        var newRow = $(row_str);
@@ -691,6 +693,24 @@ $(document).ready(function(){
                                            });
                                            $('#invoice_total').val(tot_amt.toFixed(2));
                                            $('#inv_total').text(tot_amt.toFixed(2)); 
+                                       });
+                                        $('.thumbnail').click(function(){ 
+                                                var title = $(this).parent('a').attr("src");
+                                                $(".model_img").attr("src",this.src); 
+                                                $('#myModal').modal({show:true});
+
+                                        }); 
+                                       $('#minusqty_'+res2.id+rowCount).click(function(){
+                                           var id1 = (this.id).split('_')[1];
+//                                           alert($('#qty_'+id1).val())
+                                           var new_val = parseFloat($('#qty_'+id1).val()) - 1;
+                                           $('#qty_'+id1).val((new_val<1)?1:new_val); 
+                                       });
+                                       $('#plusqty_'+res2.id+rowCount).click(function(){
+                                           var id1 = (this.id).split('_')[1];
+//                                           alert($('#qty_'+id1).val())
+                                           var new_val = parseFloat($('#qty_'+id1).val()) + 1;
+                                           $('#qty_'+id1).val((new_val<1)?1:new_val); 
                                        });
                                }
 		});

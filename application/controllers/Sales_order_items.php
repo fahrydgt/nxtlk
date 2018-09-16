@@ -525,6 +525,7 @@ class Sales_order_items extends CI_Controller {
                 $data['res_page_count'] = count($search_list_items_chunks);
             }
             $data['page_no'] = $input['page_no'];
+            $data['order_id'] = $input['order_id'];
 //		$data_view['search_list'] = $this->Sales_order_items_model->search_result();
             $this->load->view('sales_order_items/add_so_items_itm_result',$data);
 	}
@@ -549,6 +550,7 @@ class Sales_order_items extends CI_Controller {
                 $data['res_page_count'] = count($search_list_items_chunks);
             }
             $data['page_no'] = $input['page_no'];
+            $data['order_id'] = $input['order_id'];
             $this->load->view('sales_order_items/so_modals/item_pop_modal_result',$data);
 //            echo json_encode($data_res);
             

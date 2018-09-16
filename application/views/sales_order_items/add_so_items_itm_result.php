@@ -3,7 +3,8 @@
         cursor: pointer;
     }
 </style>
-<div id="item_contents_swipe" class="row ">        
+<div id="item_contents_swipe" class="row ">  
+<input hidden type="text" class="page_trackn" id="page_<?php echo $page_no;?>" value="<?php echo $page_no;?>">      
     <?php
     
 //        echo '<pre>';        print_r($search_list_items_chunks); die;

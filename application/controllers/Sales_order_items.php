@@ -524,21 +524,32 @@ class Sales_order_items extends CI_Controller {
                 $data['search_list_items_chunks'] = $search_list_items_chunks[($input['page_no']-1)];
                 $data['res_page_count'] = count($search_list_items_chunks);
             }
+            $data['page_no'] = $input['page_no'];
 //		$data_view['search_list'] = $this->Sales_order_items_model->search_result();
             $this->load->view('sales_order_items/add_so_items_itm_result',$data);
 	}
         function search_items_for_modal(){ 
             $input = $this->input->post();
+//            echo '<pre>';            print_r($inputs); die;
 //            $data['sales_order_det'] = $this->Sales_order_items_model->get_single_row($input['order_id']);
             $search_data=array(  
                                 'category_id' => $input['category_id'],  
                                 'item_code' => $input['item_code'],  
                                 'price_type_id' =>16, //whole sale
                                 ); 
-            $data_res['items'] = $this->Sales_order_items_model->search_result($search_data);
-//            foreach ($data_res as $da)
-//            echo '<pre>';            print_r($data_res); die;
-            $this->load->view('sales_order_items/so_modals/item_pop_modal_result',$data_res);
+            $data['search_list_items'] = $this->Sales_order_items_model->search_result($search_data);
+            $data['search_list_cats'] = $data['search_list_items_chunks'] = array();
+//            $data['order_id'] = $input['order_id'];
+            foreach ($data['search_list_items'] as $item){
+                $data['search_list_cats'][$item['cat_id']]=$item;
+            }
+            if(!empty($data['search_list_items'])) {
+                $search_list_items_chunks = array_chunk ($data['search_list_items'], 9);
+                $data['search_list_items_chunks'] = $search_list_items_chunks[($input['page_no']-1)];
+                $data['res_page_count'] = count($search_list_items_chunks);
+            }
+            $data['page_no'] = $input['page_no'];
+            $this->load->view('sales_order_items/so_modals/item_pop_modal_result',$data);
 //            echo json_encode($data_res);
             
 	}

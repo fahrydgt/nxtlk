@@ -44,7 +44,7 @@ class Sales_order_items_model extends CI_Model
             
             
             $result = $this->db->get()->result_array();  
-//            echo $this->db->last_query(); die;
+//            echo $this->db->last_query(); die;  
             return $result;
 	}
 	

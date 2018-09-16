@@ -1,7 +1,7 @@
 <div class="row">        
     <?php
     
-//    echo form_hidden('page_count', $res_page_count); 
+//    echo form_hidden('page_count', $res_page_count);  
     if(!empty($search_list_cats)){
         foreach ($search_list_cats as $search){
     //        echo '<pre>';        print_r($search); die;
@@ -22,6 +22,8 @@
     }
     ?>
     <input hidden type="text" id="page_count_str" value="1">
+    <input hidden type="text" id="cat_id_clicked" value="">
+    <input hidden type="text" id="tot_pages_res_1" value="">
 </div>
 
 <script>
@@ -33,6 +35,7 @@ $(document).ready(function() {
 });
 function get_results_item2(cat_id=''){ 
             var cat = (cat_id!='')?cat_id:$('#category_id').val();
+            $('#cat_id_clicked').val(cat_id);
             var pages = 1;
 //                return false;
             
@@ -44,7 +47,8 @@ function get_results_item2(cat_id=''){
                     type: 'post',
                     data : {function_name:'pagination_dets',category_id:cat,item_code:$('#item_code').val(),order_id:$('[name="order_id"]').val()},
                     success: function(result){
-                        pages=result;  
+                        pages=result; 
+                        $('#tot_pages_res_1').val(pages);
 //                        alert(pages)
                         var opts = {
                             onPageClick: function (event, page) {

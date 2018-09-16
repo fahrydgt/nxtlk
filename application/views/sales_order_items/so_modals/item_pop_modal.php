@@ -160,6 +160,17 @@
 //                                            alert('Totalitems: '+totslide_flickt+'---pages_all'+res_page_count+'----Loadpage:'+page_to_load); 
                                             $('.hero-carousel').flickity( 'append', cell_elm ); 
                                                     
+                                                        $('.confirm_order_item').click(function(){
+                                                               var itm_id1 = (this.id).split('_')[0];
+                                                               add_item_to_order(itm_id1);
+                                                        });
+                                                        $('.itm-thmb').click(function(){
+                                                                var tmbimg_id = (this.id).split('_')[1]; 
+                                                                var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
+                                                                var dif = parseFloat(tmbimg_id)-parseFloat(active_mg); 
+                                                                $('#img_'+active_mg).removeClass('active');
+                                                                $('#img_'+tmbimg_id).addClass('active'); 
+                                                        });
                                         }
                                     });
                                 }
@@ -183,10 +194,22 @@
                                                 var cell_elm = $(result);
                                                 $('.hero-carousel').flickity( 'insert', cell_elm,0 ); 
                                                     
+                                                $('.confirm_order_item').click(function(){
+                                                       var itm_id1 = (this.id).split('_')[0];
+                                                       add_item_to_order(itm_id1);
+                                                });
+                                                $('.itm-thmb').click(function(){
+                                                        var tmbimg_id = (this.id).split('_')[1]; 
+                                                        var active_mg = $('.carousel-inner .active').attr('id').split('_')[1];
+                                                        var dif = parseFloat(tmbimg_id)-parseFloat(active_mg); 
+                                                        $('#img_'+active_mg).removeClass('active');
+                                                        $('#img_'+tmbimg_id).addClass('active'); 
+                                                });
                                         }
                                     });
                                 }
             } 
+                
         });
                   $('.itm-thmb').click(function(){
                     var tmbimg_id = (this.id).split('_')[1]; 
@@ -195,8 +218,7 @@
                       $('#img_'+active_mg).removeClass('active');
                       $('#img_'+tmbimg_id).addClass('active'); 
                     });
-        
-              return false; 
+         
     
     }
     function item_click_next(direction){

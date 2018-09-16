@@ -38,7 +38,7 @@
 <!-- Bootstrap WYSIHTML5 -->
 <script src="<?php echo base_url('templates/plugins/bootstrap-wysihtml5/bootstrap3-wysihtml5.all.min.js');?>"></script>
 <!-- Slimscroll -->
-<script src="<?php echo base_url('templates/plugins/slimScroll/jquery.slimscroll.min.js');?>"></script>
+<script src="<?php // echo base_url('templates/plugins/slimScroll/jquery.slimscroll.min.js');?>"></script>
 <!-- FastClick -->
 <script src="<?php echo base_url('templates/plugins/fastclick/fastclick.js');?>"></script>
 
@@ -62,7 +62,8 @@
 <!-- Pagination -->
 <script src="<?php echo base_url('templates/plugins/pagination/jquery.twbsPagination.js')?>"></script>
 <!-- END Pagination-->
-<script src="<?php echo base_url('templates/plugins/mobile_custom/jquery.mobile.custom.min.js')?>"></script>
-<!-- END Pagination-->
+<!-- Mobilde Custum or Swipe-->
+<script src="<?php // echo base_url('templates/plugins/mobile_custom/jquery.mobile.custom.min.js')?>"></script>
+<!-- END Mobile Custum or Swipe-->
 </body>
 </html>

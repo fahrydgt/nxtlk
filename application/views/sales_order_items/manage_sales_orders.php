@@ -601,29 +601,27 @@ $(document).ready(function(){
                                 $('#customer_phone').val(obj2.phone); 
 
                                }
-                   });
-                   
+                   }); 
             }
-        function set_item_list_cookie(){
-                                
+            
+        function set_item_list_cookie(){ 
                     $.ajax({
                            url: "<?php echo site_url('Sales_order_items/fl_ajax');?>",
                            type: 'post',
                            data : {function_name:'get_cookie_data_itms',order_id:'<?php echo $result['id'];?>'},
                            success: function(result){
-                               
+                                 
                                 var obj1 = JSON.parse(result);
-                                console.log(obj1);
-                                 $(obj1).each(function (index, ob) {   
-                                    var obj2 = JSON.parse(ob.item_det_json); 
-                                    set_item_list_ajax(obj2.item_code,ob.modal_price,ob.modal_qty); 
+                                 $(obj1).each(function (index, ob) {
+//                                    var obj2 = JSON.parse(ob.item_det_json); 
+                                    set_item_list_ajax(ob.item_code_txt,ob.modal_price,ob.modal_qty); 
                                  });
-//                                $("#search_result_1").html(obj1); 
-
+//                                $("#search_result_1").html(obj1);  
                                }
                    });
                    
             }
+            
     function set_item_list_ajax(item_code,item_price,itm_qty,itm_qty_2=0){
 //    alert(itm_qty); return false;
         $.ajax({

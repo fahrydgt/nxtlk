@@ -36,6 +36,8 @@ class Sales_order_items_model extends CI_Model
             $this->db->from(ITEMS." i");  
             $this->db->where('ic.deleted',0); 
             $this->db->where('ic.status',1);
+            $this->db->where('i.deleted',0); 
+            $this->db->where('i.status',1);
             $this->db->order_by('i.id');
             if(isset($data['category_id']) && $data['category_id']!='') $this->db->where('ic.id',$data['category_id']);
             if(isset($data['item_code']) && $data['item_code']!='') $this->db->where('i.item_code',$data['item_code']);

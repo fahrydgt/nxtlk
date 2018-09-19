@@ -43,7 +43,9 @@ $(document).ready(function(){
                     type: 'post',
                     data : {function_name:'pagination_dets',category_id:cat},
                     success: function(result){ 
-                        pages=result;  
+                        var pages=result;  
+                        $('#tot_pages_res_1').val(pages);
+                        
 //                        alert(pages)
                         var opts = {
                             onPageClick: function (event, page) {
